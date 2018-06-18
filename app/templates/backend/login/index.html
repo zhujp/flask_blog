@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Bdelay 管理后台登录</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="csrf-token" content="">
+  <link rel="stylesheet" href="{{ url_for('static', filename='modules/layui/css/layui.css') }}"  media="all">
+</head>
+<style type="text/css">
+    div.login {
+        width: 260px;
+        height: 200px;
+        padding: 20px;
+        background-color: rgba(0,0,0,0.5);
+        border-radius: 4px;
+        position: absolute;
+        left: 50%;
+        top: 40%;
+        margin: -150px 0 0 -150px;
+        z-index: 99;
+    }
+    h1{
+        text-align: center;
+        color: #fff;
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+    .layui-form-item div.layui-input-inline,.layui-form-item div.layui-input {
+        width: 100%;
+    }
+
+</style>
+<body style="text-align: center;">
+    <div class="login">
+        <h1>Bdelay 管理员登录</h1>
+        <form class="layui-form" action="{{ url_for('backend.login') }}" method="post">
+          {{ form.hidden_tag() }}
+            <div class="layui-form-item">
+                <div class="layui-input-inline">
+                  <input type="text" name="username" autocomplete="off" placeholder="请输入账号" class="layui-input" lay-verify="username">
+                </div>
+              </div>
+            <div class="layui-form-item">
+                <div class="layui-input-inline">
+                  <input type="password" name="password" lay-verify="pass" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                </div>
+              </div>
+            
+              <button class="layui-btn" style="width: 100%;" lay-submit="" lay-filter="login">登录</button>
+          </div>
+        </form>
+    </div>
+    
+    <script src="{{ url_for('static', filename='modules/layui/layui.js') }}" charset="utf-8"></script>
+    <script>
+        layui.use(['form','layer'], function(){
+              var $ = layui.jquery
+              ,form = layui.form
+              ,layer = layui.layer;
+              form.verify({
+                username: function(value){
+                  if(value.length <= 0){
+                    return '请输入账号';
+                  }
+                }
+                ,pass: function(value){
+                  if(value.length <= 0){
+                    return '请输入密码';
+                  }
+                }
+              });
+              
+              form.on('submit(login)', function(data){
+                $.ajax({
+                    url:data.form.action,
+                    data:$(data.form).serialize(),
+                    type:'post',
+                    dataType:'json',
+                    success:function(result){
+                      layer.msg(result.msg);
+                      console.log(result.msg);
+                      console.log(result.code);
+                      if (result.code == 1) {
+                        setInterval(function(){
+                            window.location.href=result.url;
+                        },3000);
+                      }
+                    }
+                });
+                
+                return false;
+              });
+        });
+    </script>
+</body>
+</html>
