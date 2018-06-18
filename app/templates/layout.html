@@ -4,6 +4,7 @@
   {% block head %}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>{% block title %}{% endblock %}</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='modules/layui/css/layui.css') }}">
   {% endblock %}
@@ -87,12 +88,7 @@
   </div>
 </div>
 <script src="{{ url_for('static', filename='modules/layui/layui.js') }}"></script>
-<script>
-//JavaScript代码区域
-layui.use('element', function(){
-  var element = layui.element;
-  
-});
-</script>
+{% block script %}{% endblock %}
+<script src="{{ url_for('static', filename='backend/js/common.js') }}"></script>
 </body>
 </html>

@@ -4,7 +4,8 @@ from .forms import LoginForm
 from flask_login import login_user,login_required,logout_user
 from ..models import User
 from .. import db
-from .helper import json_data
+from .helper import json_data, json_lists
+from pprint import pprint
 
 @backend.route('/login',methods=['GET','POST'])
 def login():
@@ -21,3 +22,19 @@ def login():
 @login_required
 def index():
     return render_template('backend/console/index.html')
+
+@backend.route('/user/index')
+def users():
+    page = request.args.get('page',0, type=int)
+    if page > 0:
+        lists = User.query.order_by(User.created_at.desc()).paginate(page,per_page=15,error_out=False)
+        data = {
+            'list':lists.items,
+            'total':lists.total
+        }
+        return json_lists(data)
+    return render_template('backend/user/index.html')
+
+@backend.route('/user/edit')
+def user_edit():
+    return render_template('backend/user/edit.html')
