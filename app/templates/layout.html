@@ -15,8 +15,8 @@
     <div class="layui-logo">Vstary</div>
     <!-- 头部区域（可配合layui已有的水平导航） -->
     <ul class="layui-nav layui-layout-left">
-      <li class="layui-nav-item"><a href="">控制台</a></li>
-      <li class="layui-nav-item"><a href="">商品管理</a></li>
+      <li class="layui-nav-item"><a href="{{ url_for('backend.index') }}">控制台</a></li>
+     <!--  <li class="layui-nav-item"><a href="">商品管理</a></li>
       <li class="layui-nav-item"><a href="">用户</a></li>
       <li class="layui-nav-item">
         <a href="javascript:;">其它系统</a>
@@ -25,7 +25,7 @@
           <dd><a href="">消息管理</a></dd>
           <dd><a href="">授权管理</a></dd>
         </dl>
-      </li>
+      </li> -->
     </ul>
     <ul class="layui-nav layui-layout-right">
       <li class="layui-nav-item">
@@ -47,30 +47,29 @@
       <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
       <ul class="layui-nav layui-nav-tree"  lay-filter="test">
         <li class="layui-nav-item layui-nav-itemed">
-          <a class="" href="javascript:;">首页</a>
+          <a class="" href="{{ url_for('backend.index') }}">首页</a>
         </li>
         <li class="layui-nav-item">
           <a class="" href="javascript:;">内容管理</a>
           <dl class="layui-nav-child">
-            <dd><a href="javascript:;">文章列表</a></dd>
-            <dd><a href="javascript:;">分类列表</a></dd>
-            <dd><a href="javascript:;">标签列表</a></dd>
-            <dd><a href="javascript:;">评论列表</a></dd>
+            <dd><a href="{{ url_for('backend.posts') }}">文章列表</a></dd>
+            <dd><a href="{{ url_for('backend.category') }}">分类列表</a></dd>
+            <dd><a href="{{ url_for('backend.labels') }}">标签列表</a></dd>
           </dl>
         </li>
         <li class="layui-nav-item">
           <a class="" href="javascript:;">数据统计</a>
           <dl class="layui-nav-child">
-            <dd><a href="javascript:;">访问数据</a></dd>
+            <dd><a href="{{ url_for('backend.statis') }}">访问数据</a></dd>
           </dl>
         </li>
         <li class="layui-nav-item">
           <a href="javascript:;">系统设置</a>
           <dl class="layui-nav-child">
-            <dd><a href="javascript:;">系统设置</a></dd>
-            <dd><a href="javascript:;">管理员列表</a></dd>
-            <dd><a href="javascript:;">后台日志</a></dd>
-            <dd><a href="javascript:;">权限管理</a></dd>
+            <dd><a href="{{ url_for('backend.setting') }}">系统设置</a></dd>
+            <dd><a href="{{ url_for('backend.users') }}">管理员列表</a></dd>
+            <dd><a href="{{ url_for('backend.logs') }}">后台日志</a></dd>
+            <!-- <dd><a href="javascript:;">权限管理</a></dd> -->
           </dl>
         </li>
       </ul>
