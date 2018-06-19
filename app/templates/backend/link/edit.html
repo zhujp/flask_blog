@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% block content %}
+<div style="padding: 15px;">
+    <form class="layui-form" action="{{ url_for('backend.link_edit')}}" method="post">
+       <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+       <input type="hidden" name="id" value="{{ link.id }}">
+        <div class="layui-form-item">
+            <label class="layui-form-label">名称</label>
+            <div class="layui-input-inline">
+                <input type="text" name="name" lay-verify="required" autocomplete="off" value="{{ link.name }}" placeholder="请输入名称" class="layui-input">
+            </div>
+       </div>
+
+       <div class="layui-form-item">
+            <label class="layui-form-label">网址</label>
+            <div class="layui-input-inline">
+                <input type="text" name="url" value="{{ link.url }}" lay-verify="url" autocomplete="off" placeholder="请输入网址" class="layui-input">
+            </div>
+       </div>
+
+       <div class="layui-form-item">
+            <label class="layui-form-label">排序</label>
+            <div class="layui-input-inline">
+                <input type="text" name="sort"  value="{{ link.sort }}" autocomplete="off" placeholder="请输入排序" class="layui-input">
+            </div>
+       </div>
+      
+       <div class="layui-form-item">
+        <label class="layui-form-label">启用</label>
+        <div class="layui-input-block">
+          <input type="checkbox" value="1" {% if link and link.enabled == True%}checked=""{% endif %} name="enabled" lay-skin="switch" lay-filter="switchTest" lay-text="启用|关闭">
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <div class="layui-input-block">
+          <button class="layui-btn" lay-submit="" lay-filter="form-save">保存</button>
+          <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+      </div>
+    </form>
+</div>
+{% endblock %}

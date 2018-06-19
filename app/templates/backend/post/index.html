@@ -1,6 +1,24 @@
 {% extends "layout.html" %}
 {% block content %}
-<table class="layui-hide" id="table-form" lay-filter="backend-table"></table>
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+      <div class="layui-col-md12">
+        <div class="layui-card">
+          <div class="layui-card-header">文章列表</div>
+          <div class="layui-card-body">
+            <div class="table-reload-btn" style="margin-bottom: 10px;">
+              <div class="layui-inline">
+                <input class="layui-input" name="title" id="table-reload" value="文章标题" autocomplete="off">
+              </div>
+              <button class="layui-btn" data-type="reload">搜索</button>
+              <button class="layui-btn" data-type="create" data-url="{{ url_for('backend.post_create') }}">创建</button>
+            </div>
+            <table class="layui-hide" id="table-form" lay-filter="backend-table"></table>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}
 {% block script %}
 <script type="text/html" id="operate-bar">
@@ -25,6 +43,31 @@ layui.use('table', function(){
     ]]
     ,page: true
   });
+
+    var $ = layui.$, active = {
+      reload: function(){
+        var demoReload = $('#table-reload');
+        //执行重载
+        table.reload('test-table-reload', {
+          page: {
+            curr: 1 //重新从第 1 页开始
+          }
+          ,where: {
+            key: {
+              id: demoReload.val()
+            }
+          }
+        });
+      },
+      create:function(){
+        window.location.href=$(this).attr('data-url');
+      }
+    };
+    
+    $('.table-reload-btn .layui-btn').on('click', function(){
+      var type = $(this).data('type');
+      active[type] ? active[type].call(this) : '';
+    });
   
 });
 </script>

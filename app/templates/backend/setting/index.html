@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+{% block content %}
+<div style="padding: 15px;">
+    <form class="layui-form" action="{{ url_for('backend.setting')}}" method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <div class="layui-form-item">
+            <label class="layui-form-label">网站名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="name" required lay-verify="name" autocomplete="off" placeholder="请输入网站名称" value="" class="layui-input">
+            </div>
+       </div>
+       <div class="layui-form-item">
+            <label class="layui-form-label">Logo</label>
+           <div class="layui-upload">
+              <button type="button" class="layui-btn" id="image">上传Logo</button>
+              <input type="hidden" name="logo">
+              <div class="layui-upload-list">
+                <img style="width: 100px;height: 100px;margin-left: 110px;" class="layui-upload-img" id="image-src" src="">
+                <p id="failText"></p>
+              </div>
+            </div>
+        </div>
+       <div class="layui-form-item">
+            <label class="layui-form-label">网站描述</label>
+            <div class="layui-input-block">
+                <textarea name="introduction" placeholder="请输入网站描述" class="layui-textarea"></textarea>
+            </div>
+       </div>
+       <div class="layui-form-item">
+            <label class="layui-form-label">Seo关键字</label>
+            <div class="layui-input-block">
+                <input type="text" name="seo_keyword" lay-verify="seo_keyword" autocomplete="off" placeholder="请输入Seo关键字" class="layui-input" value="">
+            </div>
+       </div>
+       <div class="layui-form-item">
+            <label class="layui-form-label">统计代码</label>
+            <div class="layui-input-block">
+                <textarea name="statis" placeholder="请输入统计代码" class="layui-textarea"></textarea>
+            </div>
+       </div>
+       <div class="layui-form-item">
+        <label class="layui-form-label">站点状态</label>
+        <div class="layui-input-block">
+          <input type="checkbox" name="enabled" value="1" lay-skin="switch" lay-filter="switchTest" lay-text="ON|OFF">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <div class="layui-input-block">
+          <button class="layui-btn" lay-submit="" lay-filter="save">保存</button>
+          <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+      </div>
+    </form>
+</div>
+{% endblock %}

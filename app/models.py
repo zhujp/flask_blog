@@ -46,6 +46,7 @@ class Link(db.Model):
     id = db.Column(db.Integer,primary_key=True)
     name = db.Column(db.String(40), nullable=False, default='')
     url = db.Column(db.String(100), nullable=False, default='')
+    sort = db.Column(db.SmallInteger, nullable=False, default=0)
     enabled = db.Column(db.Boolean, nullable=False, default=False)
 
     def __repr__(self):

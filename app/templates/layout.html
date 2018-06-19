@@ -12,8 +12,7 @@
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
   <div class="layui-header">
-    <div class="layui-logo">Vstary</div>
-    <!-- 头部区域（可配合layui已有的水平导航） -->
+    <div class="layui-logo">Bdelay</div>
     <ul class="layui-nav layui-layout-left">
       <li class="layui-nav-item"><a href="{{ url_for('backend.index') }}">控制台</a></li>
      <!--  <li class="layui-nav-item"><a href="">商品管理</a></li>
@@ -30,7 +29,7 @@
     <ul class="layui-nav layui-layout-right">
       <li class="layui-nav-item">
         <a href="javascript:;">
-          <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+          <img src="{{ url_for('static', filename='backend/images/logo.jpg') }}" class="layui-nav-img">
           {{ current_user.username }}
         </a>
         <dl class="layui-nav-child">
@@ -69,6 +68,7 @@
             <dd><a href="{{ url_for('backend.setting') }}">系统设置</a></dd>
             <dd><a href="{{ url_for('backend.users') }}">管理员列表</a></dd>
             <dd><a href="{{ url_for('backend.logs') }}">后台日志</a></dd>
+            <dd><a href="{{ url_for('backend.links') }}">友情连接</a></dd>
             <!-- <dd><a href="javascript:;">权限管理</a></dd> -->
           </dl>
         </li>
@@ -82,7 +82,7 @@
   
   <div class="layui-footer">
     {% block footer %}
-    © vstary.com
+    © <a href="//www.bdelay.com" target="_blank">bdelay.com</a>
     {% endblock %}
   </div>
 </div>

@@ -2,7 +2,7 @@ from flask import render_template, redirect, request, url_for, flash
 from . import backend
 from .forms import LoginForm
 from flask_login import login_user,login_required,logout_user
-from ..models import User, Category, Label,Post
+from ..models import User, Category, Label,Post, Link
 from .. import db
 from .helper import json_data, json_lists
 from datetime import datetime
@@ -33,6 +33,7 @@ def index():
 
 #管理员列表
 @backend.route('/user/index')
+@login_required
 def users():
     page = request.args.get('page',0, type=int)
     if page > 0:
@@ -46,6 +47,7 @@ def users():
 
 #管理员新增
 @backend.route('/user/create',methods=['GET','POST'])
+@login_required
 def user_create():
     method = request.method
     if method == 'POST':
@@ -63,6 +65,7 @@ def user_create():
 
 #管理员编辑
 @backend.route('/user/edit',methods=['GET','POST'])
+@login_required
 def user_edit():
     method = request.method
     if method == 'POST':
@@ -84,6 +87,7 @@ def user_edit():
 
 #管理员删除
 @backend.route('/user/del')
+@login_required
 def user_del():
     id = request.args.get('id',0, type=int)
     if id > 0:
@@ -95,6 +99,7 @@ def user_del():
 
 #文章列表
 @backend.route('/post/index')
+@login_required
 def posts():
     page = request.args.get('page',0, type=int)
     if page > 0:
@@ -108,6 +113,7 @@ def posts():
 
 
 @backend.route('/post/create',methods=['GET','POST'])
+@login_required
 def post_create():
     method = request.method
     if method == 'POST':
@@ -126,8 +132,8 @@ def post_create():
     labels = Label.query.filter_by(enabled=True).all()
     return render_template('backend/post/create.html',category=category,labels=labels)
 
-#管理员编辑
 @backend.route('/post/edit',methods=['GET','POST'])
+@login_required
 def post_edit():
     method = request.method
     if method == 'POST':
@@ -146,8 +152,8 @@ def post_edit():
     return render_template('backend/post/edit.html',post=post)
 
 
-#管理员删除
 @backend.route('/post/del')
+@login_required
 def post_del():
     id = request.args.get('id',0, type=int)
     if id > 0:
@@ -158,6 +164,7 @@ def post_del():
     return json_data('','数据不存在',0)
 
 @backend.route('/category/index')
+@login_required
 def category():
     page = request.args.get('page',0, type=int)
     if page > 0:
@@ -171,6 +178,7 @@ def category():
 
 
 @backend.route('/category/create',methods=['GET','POST'])
+@login_required
 def category_create():
     method = request.method
     if method == 'POST':
@@ -185,6 +193,7 @@ def category_create():
     return render_template('backend/category/create.html')
 
 @backend.route('/category/edit',methods=['GET','POST'])
+@login_required
 def category_edit():
     method = request.method
     if method == 'POST':
@@ -201,6 +210,7 @@ def category_edit():
 
 
 @backend.route('/category/del')
+@login_required
 def category_del():
     id = request.args.get('id',0, type=int)
     if id > 0:
@@ -211,6 +221,7 @@ def category_del():
     return json_data('','数据不存在',0)
 
 @backend.route('/label/index')
+@login_required
 def labels():
     page = request.args.get('page',0, type=int)
     if page > 0:
@@ -223,6 +234,7 @@ def labels():
     return render_template('backend/label/index.html')
 
 @backend.route('/label/create',methods=['GET','POST'])
+@login_required
 def label_create():
     method = request.method
     if method == 'POST':
@@ -236,6 +248,7 @@ def label_create():
     return render_template('backend/label/create.html')
 
 @backend.route('/label/edit',methods=['GET','POST'])
+@login_required
 def label_edit():
     method = request.method
     if method == 'POST':
@@ -251,6 +264,7 @@ def label_edit():
 
 
 @backend.route('/label/del')
+@login_required
 def label_del():
     id = request.args.get('id',0, type=int)
     if id > 0:
@@ -262,16 +276,78 @@ def label_del():
 
 
 @backend.route('/statis')
+@login_required
 def statis():
     return render_template('backend/statis/index.html')
 
 @backend.route('/log/index')
+@login_required
 def logs():
     return render_template('backend/log/index.html')
 
 #系统设置
 @backend.route('/setting/index')
+@login_required
 def setting():
     return render_template('backend/setting/index.html')
+
+# 友情连接
+@backend.route('/link/index')
+@login_required
+def links():
+    page = request.args.get('page',0, type=int)
+    if page > 0:
+        lists = Link.query.order_by(Link.id.desc()).paginate(page,per_page=15,error_out=False)
+        data = {
+            'list':lists.items,
+            'total':lists.total
+        }
+        return json_lists(data)
+    return render_template('backend/link/index.html')
+
+
+@backend.route('/link/create',methods=['GET','POST'])
+@login_required
+def link_create():
+    method = request.method
+    if method == 'POST':
+        link = Link(
+            name=request.form.get('name'),
+            url=request.form.get('url'),
+            sort=request.form.get('sort',0),
+            enabled= '1' == request.form.get('enabled',False)
+            )
+        db.session.add(link)
+        db.session.commit()
+        return json_data(url_for('backend.links'),'创建成功')
+    return render_template('backend/link/create.html')
+
+@backend.route('/link/edit',methods=['GET','POST'])
+@login_required
+def link_edit():
+    method = request.method
+    if method == 'POST':
+        link = Link.query.get(request.form.get('id'))
+        link.name = request.form.get('name')
+        link.sort = request.form.get('sort',0)
+        link.enabled = '1' == request.form.get('enabled',False)
+        db.session.commit()
+        return json_data(url_for('backend.links'),'修改成功')
+    else:
+        id = request.args.get('id',0, type=int)
+        link = Link.query.filter_by(id=id).first_or_404()
+    return render_template('backend/link/edit.html',link=link)
+
+
+@backend.route('/link/del')
+@login_required
+def link_del():
+    id = request.args.get('id',0, type=int)
+    if id > 0:
+        link = Link.query.filter_by(id=id).first()
+        db.session.delete(link)
+        db.session.commit()
+        return json_data(url_for('backend.links'),'删除成功')
+    return json_data('','数据不存在',0)
 
 

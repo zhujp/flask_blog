@@ -1,6 +1,16 @@
 {% extends "layout.html" %}
 {% block content %}
-<div style="padding: 15px;">
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+      <div class="layui-col-md12">
+        <div class="layui-card">
+          <div class="layui-card-header">
+            <span class="layui-breadcrumb">
+            <a href="{{ url_for('backend.posts')}}">文章列表</a>
+            <a><cite>创建文章</cite></a>
+          </span>
+          </div>
+          <div class="layui-card-body">
     
     <form class="layui-form" action="{{ url_for('backend.post_create')}}" method="post">
         <div class="layui-form-item">
@@ -62,6 +72,10 @@
       </div>
     </form>
 </div>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}
 {% block script %}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
