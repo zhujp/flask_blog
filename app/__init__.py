@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_moment import Moment
 from config import config
 from flask_login import LoginManager
-from flask_wtf.csrf import CsrfProtect
+from flask_wtf.csrf import CSRFProtect
 
 login_manager = LoginManager()
 login_manager.session_protection = 'strong'
@@ -11,7 +11,7 @@ login_manager.login_view = 'backend.login'
 
 moment = Moment()
 db = SQLAlchemy()
-csrf = CsrfProtect()
+csrf = CSRFProtect()
 
 def create_app(config_name):
     app = Flask(__name__)

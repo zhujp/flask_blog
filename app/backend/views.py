@@ -5,7 +5,7 @@ from flask_login import login_user,login_required,logout_user
 from ..models import User
 from .. import db
 from .helper import json_data, json_lists
-from pprint import pprint
+from datetime import datetime
 
 @backend.route('/login',methods=['GET','POST'])
 def login():
@@ -37,10 +37,56 @@ def users():
         return json_lists(data)
     return render_template('backend/user/index.html')
 
+#管理员新增
+@backend.route('/user/create',methods=['GET','POST'])
+def user_create():
+    method = request.method
+    if method == 'POST':
+        enabled = request.form.get('enabled',False)
+        enabled = 1 == enabled
+        user = User(
+            username=request.form.get('username'),
+            email=request.form.get('email'),
+            mobile=request.form.get('mobile'),
+            password=request.form.get('password'),
+            enabled=enabled,
+            created_at=datetime.utcnow())
+        db.session.add(user)
+        db.session.commit()
+        return json_data(url_for('backend.users'),'创建成功')
+    return render_template('backend/user/create.html')
+
 #管理员编辑
-@backend.route('/user/edit')
+@backend.route('/user/edit',methods=['GET','POST'])
 def user_edit():
-    return render_template('backend/user/edit.html')
+    method = request.method
+    if method == 'POST':
+        user = User.query.get(request.form.get('id'))
+        user.username = request.form.get('username')
+        user.email = request.form.get('email')
+        user.mobile = request.form.get('mobile')
+        if request.form.get('password') != '':
+            user.password = request.form.get('password')
+        
+        user.enabled = request.form.get('enabled',False)
+        db.session.commit()
+        return json_data(url_for('backend.users'),'修改成功')
+    else:
+        id = request.args.get('id',0, type=int)
+        user = User.query.filter_by(id=id).first_or_404()
+    return render_template('backend/user/edit.html',user=user)
+
+
+#管理员删除
+@backend.route('/user/del')
+def user_del():
+    id = request.args.get('id',0, type=int)
+    if id > 0:
+        user = User.query.filter_by(id=id).first()
+        db.session.delete(user)
+        db.session.commit()
+        return json_data(url_for('backend.users'),'删除成功')
+    return json_data('','数据不存在',0)
 
 #文章列表
 @backend.route('/post/index')

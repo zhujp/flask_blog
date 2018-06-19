@@ -16,7 +16,7 @@ layui.define(['layer', 'form', 'element', 'upload', 'laydate','table'], function
     $.ajaxSetup({
         headers: {
             // 'X-CSRF-TOKEN': $('input[name="_csrf-backend"]').val()
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
         }
     });
 
@@ -26,6 +26,7 @@ layui.define(['layer', 'form', 'element', 'upload', 'laydate','table'], function
             url:url,
             data:data,
             type:method,
+            dataType:"json",
             success:function(result){
               if (result.code == 1) {
                 layer.msg(result.msg);
@@ -55,7 +56,7 @@ layui.define(['layer', 'form', 'element', 'upload', 'laydate','table'], function
             window.location.href = url;
         } else if(obj.event === 'del'){
             layer.confirm('确定删除数据吗', function(index){
-                ajaxRequest(url,'','DELETE',0);
+                ajaxRequest(url,'','GET',0);
                 obj.del();
                 layer.close(index);
             });

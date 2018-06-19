@@ -1,12 +1,11 @@
 {% extends "layout.html" %}
 {% block content %}
-<h1>{{ method }}</h1>
 <table class="layui-hide" id="table-form" lay-filter="backend-table"></table>
 {% endblock %}
 {% block script %}
 <script type="text/html" id="operate-bar">
-  <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+  <a class="layui-btn layui-btn-xs" data-url="{{ url_for('backend.user_edit') }}" lay-event="edit">编辑</a>
+  <a class="layui-btn layui-btn-danger layui-btn-xs" data-url="{{ url_for('backend.user_del') }}" lay-event="del">删除</a>
 </script>
 <script>
 layui.use('table', function(){

@@ -4,7 +4,8 @@ def json_data(url, msg, code=1):
     data = {
         'code' : code,
         'msg' : msg,
-        'url' : url
+        'url' : url,
+        'wait' : 3
     }
     return json.dumps(data)
 

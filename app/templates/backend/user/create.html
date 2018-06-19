@@ -1,20 +1,19 @@
 {% extends "layout.html" %}
 {% block content %}
 <div style="padding: 15px;">
-    <form class="layui-form" action="{{ url_for('backend.user_edit')}}" method="post">
-      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-       <input type="hidden" name="id" value="{{ user.id }}">
+    <form class="layui-form" action="{{ url_for('backend.user_create')}}" method="post">
+       <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         <div class="layui-form-item">
             <label class="layui-form-label">名称</label>
             <div class="layui-input-inline">
-                <input type="text" name="username" lay-verify="username" autocomplete="off" placeholder="请输入名称" value="{{ user.username }}" class="layui-input">
+                <input type="text" name="username" lay-verify="required" autocomplete="off" placeholder="请输入名称" class="layui-input">
             </div>
        </div>
        <div class="layui-form-item">
         <div class="layui-inline">
           <label class="layui-form-label">手机</label>
           <div class="layui-input-inline">
-            <input type="tel" name="mobile" lay-verify="required|mobile" autocomplete="off" placeholder="请输入手机" value="{{ user.mobile }}" class="layui-input">
+            <input type="tel" name="mobile" lay-verify="required|mobile" autocomplete="off" placeholder="请输入手机" class="layui-input">
           </div>
         </div>
        
@@ -25,7 +24,7 @@
         <div class="layui-inline">
           <label class="layui-form-label">邮箱</label>
           <div class="layui-input-inline">
-            <input type="text" name="email" lay-verify="email" value="{{ user.email }}" autocomplete="off" class="layui-input" placeholder="请输入邮箱">
+            <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input" placeholder="请输入邮箱">
           </div>
         </div>
       </div>
@@ -39,7 +38,7 @@
        <div class="layui-form-item">
         <label class="layui-form-label">启用</label>
         <div class="layui-input-block">
-          <input type="checkbox" value="1" {% if user and user.enabled == True%}checked=""{% endif %} name="enabled" lay-skin="switch" lay-filter="switchTest" lay-text="启用|关闭">
+          <input type="checkbox" value="1" checked="" name="enabled" lay-skin="switch" lay-filter="switchTest" lay-text="启用|关闭">
         </div>
       </div>
 
