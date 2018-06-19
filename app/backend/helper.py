@@ -10,11 +10,14 @@ def json_data(url, msg, code=1):
     return json.dumps(data)
 
 
-def json_lists(lists, code=0, pri_key='id'):
+def json_lists(lists, code=0, to_dict=True):
     items = []
-    for item in lists['list'] :
-        row = row2dict(item)
-        items.append(row)
+    if to_dict == True:
+        for item in lists['list'] :
+            row = row2dict(item)
+            items.append(row)
+    else:
+        items = lists['items']
 
     data = {
         'code' : code,

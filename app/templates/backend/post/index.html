@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block content %}
+<table class="layui-hide" id="table-form" lay-filter="backend-table"></table>
+{% endblock %}
+{% block script %}
+<script type="text/html" id="operate-bar">
+  <a class="layui-btn layui-btn-xs" data-url="{{ url_for('backend.post_edit') }}" lay-event="edit">编辑</a>
+  <a class="layui-btn layui-btn-danger layui-btn-xs" data-url="{{ url_for('backend.post_del') }}" lay-event="del">删除</a>
+</script>
+<script>
+layui.use('table', function(){
+  var table = layui.table;
+  
+  table.render({
+    elem: '#table-form'
+    ,url:'{{ url_for("backend.posts")}}'
+    ,cols: [[
+      {field:'id', width:80, title: 'ID', sort: true}
+      ,{field:'title',  title: '标题'}
+      ,{field:'author', title: '作者'}
+      ,{field:'cat_name',  title: '分类'}
+      ,{field:'created_at',  title: '创建时间', sort: true}
+      ,{field:'enabled', title: '状态', sort: true}
+      ,{width:178, align:'center', title:'操作', fixed: 'right', toolbar: '#operate-bar'}
+    ]]
+    ,page: true
+  });
+  
+});
+</script>
+
+{% endblock %}

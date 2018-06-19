@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+{% block content %}
+<div style="padding: 15px;">
+    
+    <form class="layui-form" action="{{ url_for('backend.post_create')}}" method="post">
+        <div class="layui-form-item">
+            <label class="layui-form-label">标题</label>
+            <div class="layui-input-block">
+              <input type="text" name="title" lay-verify="required" autocomplete="off" placeholder="请输入标题" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">关键字</label>
+            <div class="layui-input-block">
+              <input type="text" name="keyword" lay-verify="required" autocomplete="off" placeholder="请输入关键字" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">作者</label>
+            <div class="layui-input-block">
+              <input type="text" name="author" autocomplete="off" placeholder="请输入作者" class="layui-input">
+            </div>
+        </div>
+        
+      <div class="layui-form-item">
+    <label class="layui-form-label">分类</label>
+    <div class="layui-input-block">
+      <select name="cat_id">
+        <option value="0"></option>
+        {% for cat in category %}
+        <option value="{{ cat.id }}">{{ cat.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+        <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">内容</label>
+        <div class="layui-input-block">
+          <textarea id="md" placeholder="请输入内容" class="layui-textarea" name="body"></textarea>
+        </div>
+      </div>
+      <div class="layui-form-item" pane="">
+    <label class="layui-form-label">标签</label>
+    <div class="layui-input-block">
+      {% for label in labels %}
+     <input type="checkbox" value="{{ label.id }}" name="label[{{ label.id }}]" lay-skin="primary" title="{{ label.name }}">
+      {% endfor %}
+    </div>
+  </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">启用</label>
+        <div class="layui-input-block">
+          <input type="checkbox" value="1" checked="" name="enabled" lay-skin="switch" lay-filter="switchTest" lay-text="启用|关闭">
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <div class="layui-input-block">
+          <button class="layui-btn" lay-submit="" lay-filter="save">保存</button>
+          <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+      </div>
+    </form>
+</div>
+{% endblock %}
+{% block script %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+<script>
+    var simplemde = new SimpleMDE({ element: document.getElementById('md') });
+</script>
+{% endblock %}
