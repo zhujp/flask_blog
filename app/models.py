@@ -89,3 +89,15 @@ class User(UserMixin, db.Model):
     @login_manager.user_loader
     def load_user(user_id):
         return User.query.get(int(user_id))
+
+
+class Setting(db.Model):
+
+    __tablename__='setting'
+    id = db.Column(db.Integer,primary_key=True)
+    name = db.Column(db.String(60),nullable=False,default='')
+    value = db.Column(db.String(255), nullable=False,default='')
+
+    def __repr_(self):
+        return '<Setting %r>' % self.name
+

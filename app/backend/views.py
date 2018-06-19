@@ -1,11 +1,14 @@
+import os
 from flask import render_template, redirect, request, url_for, flash
 from . import backend
 from .forms import LoginForm
 from flask_login import login_user,login_required,logout_user
-from ..models import User, Category, Label,Post, Link
+from ..models import User, Category, Label,Post, Link, Setting
 from .. import db
 from .helper import json_data, json_lists
 from datetime import datetime
+from werkzeug.utils import secure_filename
+
 
 @backend.route('/login',methods=['GET','POST'])
 def login():
@@ -286,10 +289,36 @@ def logs():
     return render_template('backend/log/index.html')
 
 #系统设置
-@backend.route('/setting/index')
+@backend.route('/setting/index',methods=['GET','POST'])
 @login_required
 def setting():
+    method = request.method
+    # if method == 'POST':
+
+    # else:
+    #     sets = Setting.query.all()
+
     return render_template('backend/setting/index.html')
+
+
+@backend.route('/upload', methods=['POST'])
+@login_required
+def upload_file():
+    if request.method == 'POST':
+        if 'file' not in request.files:
+            return json_data('','没有需要上传到文件')
+
+        file = request.files['file']
+        if file.filename == '':
+            return json_data('','没有选择要上传到文件')
+
+        if file and allowed_file(file.filename): #验证允许上传到文件类型
+            filename = secure_filename(file.filename)
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file.save(file_path)
+            return json_data(file_path,'图片上传成功',0)
+            
+    return json_data('','图片上传失败',1)
 
 # 友情连接
 @backend.route('/link/index')
@@ -349,5 +378,4 @@ def link_del():
         db.session.commit()
         return json_data(url_for('backend.links'),'删除成功')
     return json_data('','数据不存在',0)
-
 
