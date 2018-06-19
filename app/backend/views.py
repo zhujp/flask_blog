@@ -2,7 +2,7 @@ from flask import render_template, redirect, request, url_for, flash
 from . import backend
 from .forms import LoginForm
 from flask_login import login_user,login_required,logout_user
-from ..models import User
+from ..models import User, Category, Label
 from .. import db
 from .helper import json_data, json_lists
 from datetime import datetime
@@ -42,14 +42,12 @@ def users():
 def user_create():
     method = request.method
     if method == 'POST':
-        enabled = request.form.get('enabled',False)
-        enabled = 1 == enabled
         user = User(
             username=request.form.get('username'),
             email=request.form.get('email'),
             mobile=request.form.get('mobile'),
             password=request.form.get('password'),
-            enabled=enabled,
+            enabled= '1' == request.form.get('enabled',False),
             created_at=datetime.utcnow())
         db.session.add(user)
         db.session.commit()
@@ -68,7 +66,7 @@ def user_edit():
         if request.form.get('password') != '':
             user.password = request.form.get('password')
         
-        user.enabled = request.form.get('enabled',False)
+        user.enabled = '1' == request.form.get('enabled',False)
         db.session.commit()
         return json_data(url_for('backend.users'),'修改成功')
     else:
@@ -95,11 +93,107 @@ def posts():
 
 @backend.route('/category/index')
 def category():
+    page = request.args.get('page',0, type=int)
+    if page > 0:
+        lists = Category.query.order_by(Category.id.desc()).paginate(page,per_page=15,error_out=False)
+        data = {
+            'list':lists.items,
+            'total':lists.total
+        }
+        return json_lists(data)
     return render_template('backend/category/index.html')
+
+
+@backend.route('/category/create',methods=['GET','POST'])
+def category_create():
+    method = request.method
+    if method == 'POST':
+        enabled = '1' == request.form.get('enabled',False)
+        category = Category(
+            name=request.form.get('name'),
+            sort=request.form.get('sort',0),
+            enabled=enabled)
+        db.session.add(category)
+        db.session.commit()
+        return json_data(url_for('backend.category'),'创建成功')
+    return render_template('backend/category/create.html')
+
+@backend.route('/category/edit',methods=['GET','POST'])
+def category_edit():
+    method = request.method
+    if method == 'POST':
+        category = Category.query.get(request.form.get('id'))
+        category.name = request.form.get('name')
+        category.sort = request.form.get('sort',0)
+        category.enabled = '1' == request.form.get('enabled',False)
+        db.session.commit()
+        return json_data(url_for('backend.category'),'修改成功')
+    else:
+        id = request.args.get('id',0, type=int)
+        category = Category.query.filter_by(id=id).first_or_404()
+    return render_template('backend/category/edit.html',category=category)
+
+
+@backend.route('/category/del')
+def category_del():
+    id = request.args.get('id',0, type=int)
+    if id > 0:
+        category = Category.query.filter_by(id=id).first()
+        db.session.delete(category)
+        db.session.commit()
+        return json_data(url_for('backend.category'),'删除成功')
+    return json_data('','数据不存在',0)
 
 @backend.route('/label/index')
 def labels():
+    page = request.args.get('page',0, type=int)
+    if page > 0:
+        lists = Label.query.order_by(Label.id.desc()).paginate(page,per_page=15,error_out=False)
+        data = {
+            'list':lists.items,
+            'total':lists.total
+        }
+        return json_lists(data)
     return render_template('backend/label/index.html')
+
+@backend.route('/label/create',methods=['GET','POST'])
+def label_create():
+    method = request.method
+    if method == 'POST':
+        label = Label(
+            name=request.form.get('name'),
+            enabled= '1' == request.form.get('enabled',False)
+            )
+        db.session.add(label)
+        db.session.commit()
+        return json_data(url_for('backend.labels'),'创建成功')
+    return render_template('backend/label/create.html')
+
+@backend.route('/label/edit',methods=['GET','POST'])
+def label_edit():
+    method = request.method
+    if method == 'POST':
+        label = Label.query.get(request.form.get('id'))
+        label.name = request.form.get('name')
+        label.enabled = '1' == request.form.get('enabled',False)
+        db.session.commit()
+        return json_data(url_for('backend.labels'),'修改成功')
+    else:
+        id = request.args.get('id',0, type=int)
+        label = Label.query.filter_by(id=id).first_or_404()
+    return render_template('backend/label/edit.html',label=label)
+
+
+@backend.route('/label/del')
+def label_del():
+    id = request.args.get('id',0, type=int)
+    if id > 0:
+        label = Label.query.filter_by(id=id).first()
+        db.session.delete(label)
+        db.session.commit()
+        return json_data(url_for('backend.labels'),'删除成功')
+    return json_data('','数据不存在',0)
+
 
 @backend.route('/statis')
 def statis():
