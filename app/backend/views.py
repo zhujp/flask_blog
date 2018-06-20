@@ -8,6 +8,7 @@ from .. import db
 from .helper import json_data, json_lists
 from datetime import datetime
 from werkzeug.utils import secure_filename
+import json
 
 
 @backend.route('/login',methods=['GET','POST'])
@@ -293,12 +294,28 @@ def logs():
 @login_required
 def setting():
     method = request.method
-    # if method == 'POST':
+    if method == 'POST':
+        post = request.form
+        for k,v in post.items():
+            if k == 'csrf_token':
+                continue
 
-    # else:
-    #     sets = Setting.query.all()
+            item = Setting.query.filter_by(name=k).first()
+            if item is not None:
+                item.value = v
+            else:
+                item = Setting(name=k,value=v)
+            db.session.add(item)
+            db.session.commit()
+        return json_data(url_for('backend.setting'),'修改成功')
 
-    return render_template('backend/setting/index.html')
+    else:
+        sets = Setting.query.all()
+        set_data = {}
+        for s in sets:
+            set_data[s.name] = s.value
+
+    return render_template('backend/setting/index.html',set_data=set_data)
 
 
 @backend.route('/upload', methods=['POST'])
@@ -312,12 +329,15 @@ def upload_file():
         if file.filename == '':
             return json_data('','没有选择要上传到文件')
 
-        if file and allowed_file(file.filename): #验证允许上传到文件类型
-            filename = secure_filename(file.filename)
-            file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            file.save(file_path)
-            return json_data(file_path,'图片上传成功',0)
-            
+        # if file and allowed_file(file.filename): #验证允许上传到文件类型
+        filename = secure_filename(file.filename)
+        basedir = os.path.abspath(os.path.dirname(__file__))
+        upload_path = os.path.join(basedir,'..','static/uploads/')
+        file_path = os.path.join(upload_path, filename)
+        file.save(file_path)
+        url_path = '/static/uploads/'+filename
+        return json_data(url_path,'图片上传成功',0)
+
     return json_data('','图片上传失败',1)
 
 # 友情连接

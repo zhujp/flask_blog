@@ -6,7 +6,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">网站名称</label>
             <div class="layui-input-block">
-                <input type="text" name="name" required lay-verify="name" autocomplete="off" placeholder="请输入网站名称" value="" class="layui-input">
+                <input type="text" name="site_name" required lay-verify="name" autocomplete="off" value="{{ set_data.site_name}}" placeholder="请输入网站名称" value="" class="layui-input">
             </div>
        </div>
        <div class="layui-form-item">
@@ -15,7 +15,7 @@
               <button type="button" class="layui-btn" id="image">上传Logo</button>
               <input type="hidden" name="logo">
               <div class="layui-upload-list">
-                <img style="width: 100px;height: 100px;margin-left: 110px;" class="layui-upload-img" id="image-src" src="">
+                <img style="width: 100px;height: 100px;margin-left: 110px;" class="layui-upload-img" id="image-src" src="{% if set_data %}{{ set_data.logo }}{% endif %}">
                 <p id="failText"></p>
               </div>
             </div>
@@ -23,33 +23,63 @@
        <div class="layui-form-item">
             <label class="layui-form-label">网站描述</label>
             <div class="layui-input-block">
-                <textarea name="introduction" placeholder="请输入网站描述" class="layui-textarea"></textarea>
+                <textarea name="introduction" placeholder="请输入网站描述" class="layui-textarea">{{ set_data.introduction }}</textarea>
             </div>
        </div>
        <div class="layui-form-item">
             <label class="layui-form-label">Seo关键字</label>
             <div class="layui-input-block">
-                <input type="text" name="seo_keyword" lay-verify="seo_keyword" autocomplete="off" placeholder="请输入Seo关键字" class="layui-input" value="">
+                <input type="text" name="seo_keyword" lay-verify="seo_keyword" autocomplete="off" value="{{ set_data.seo_keyword }}" placeholder="请输入Seo关键字" class="layui-input" value="">
             </div>
        </div>
        <div class="layui-form-item">
             <label class="layui-form-label">统计代码</label>
             <div class="layui-input-block">
-                <textarea name="statis" placeholder="请输入统计代码" class="layui-textarea"></textarea>
+                <textarea name="statis" placeholder="请输入统计代码" class="layui-textarea">{{ set_data.statis }}</textarea>
             </div>
        </div>
        <div class="layui-form-item">
         <label class="layui-form-label">站点状态</label>
         <div class="layui-input-block">
-          <input type="checkbox" name="enabled" value="1" lay-skin="switch" lay-filter="switchTest" lay-text="ON|OFF">
+          <input type="checkbox" name="enabled" value="1" lay-skin="switch" lay-filter="switchTest" {% if set_data and set_data.enabled == '1' %}checked=""{% endif %} lay-text="ON|OFF">
         </div>
       </div>
       <div class="layui-form-item">
         <div class="layui-input-block">
-          <button class="layui-btn" lay-submit="" lay-filter="save">保存</button>
+          <button class="layui-btn" lay-submit="" lay-filter="form-save">保存</button>
           <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
       </div>
     </form>
 </div>
+{% endblock %}
+{% block script %}
+<script>
+layui.use('upload', function(){
+  var $ = layui.jquery
+  ,upload = layui.upload;
+  
+  var uploadInst = upload.render({
+    elem: '#image'
+    ,url: "{{ url_for('backend.upload_file')}}"
+    ,accept: 'file' //普通文件
+    ,exts: 'jpg|png|gif|bmp|jpeg' //只允许
+    ,before: function(obj){
+      obj.preview(function(index, file, result){
+        $('#image-src').attr('src', result); 
+      });
+    }
+    ,done: function(res){
+      if(res.code > 0){
+        return layer.msg('上传失败');
+      }
+      $('#image').parent().find('input[type=hidden]').val(res.url);
+    }
+  });
+  
+
+  
+});
+</script>
+
 {% endblock %}
