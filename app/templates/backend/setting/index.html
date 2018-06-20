@@ -1,12 +1,6 @@
 {% extends "layout.html" %}
+{% block page_header%}系统设置{% endblock %}
 {% block content %}
-<div class="layui-card">
-          <div class="layui-card-header">
-            <span class="layui-breadcrumb">
-            <a><cite>系统设置</cite></a>
-          </span>
-          </div>
-          <div class="layui-card-body">
     <form class="layui-form" action="{{ url_for('backend.setting')}}" method="post">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         <div class="layui-form-item">
@@ -57,8 +51,6 @@
         </div>
       </div>
     </form>
-</div>
-</div>
 {% endblock %}
 {% block script %}
 <script>

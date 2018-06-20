@@ -78,12 +78,22 @@
   
   <div class="layui-body">
     <div class="layui-fluid" style="padding: 0px;">
-    <div class="layui-row layui-col-space15">
-      <div class="layui-col-md12">
-    {% block content %}{% endblock %}
+      <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+          <div class="layui-card">
+          <div class="layui-card-header">
+          {% block page_header %}{% endblock %}
+          {% block page_here %}{% endblock %}
+          </div>
+          <div class="layui-card-body">
+            {% block search %} {% endblock %}
+            {% block content %}{% endblock %}
+            
+          </div>
+        </div>
+        </div>
+      </div>
     </div>
-    </div>
-  </div>
   </div>
   
   <div class="layui-footer">

@@ -1,6 +1,12 @@
 {% extends "layout.html" %}
+{% block page_header%}
+<span class="layui-breadcrumb">
+<a href="{{ url_for('backend.category')}}">分类列表</a>
+{% endblock %}
+{% block page_here %}
+<a><cite>编辑分类</cite></a>
+{% endblock %}
 {% block content %}
-<div style="padding: 15px;">
     <form class="layui-form" action="{{ url_for('backend.category_edit')}}" method="post">
        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
        <input type="hidden" name="id" value="{{ category.id }}">
@@ -32,5 +38,4 @@
         </div>
       </div>
     </form>
-</div>
 {% endblock %}

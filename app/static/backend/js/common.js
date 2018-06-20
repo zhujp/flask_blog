@@ -88,5 +88,30 @@ layui.define(['layer', 'form', 'element', 'upload', 'laydate','table'], function
        location.href = url;
     });
     
+
+    var $ = layui.$, active = {
+      reload: function(){
+        var demoReload = $('#table-reload');
+        //执行重载
+        table.reload('test-table-reload', {
+          page: {
+            curr: 1 //重新从第 1 页开始
+          }
+          ,where: {
+            key: {
+              id: demoReload.val()
+            }
+          }
+        });
+      },
+      create:function(){
+        window.location.href=$(this).attr('data-url');
+      }
+    };
+    
+    $('.table-reload-btn .layui-btn').on('click', function(){
+      var type = $(this).data('type');
+      active[type] ? active[type].call(this) : '';
+    });
     
 });    

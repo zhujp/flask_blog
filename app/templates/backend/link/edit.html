@@ -1,6 +1,12 @@
 {% extends "layout.html" %}
+{% block page_header%}
+<span class="layui-breadcrumb">
+<a href="{{ url_for('backend.links')}}">友情链接列表</a>
+{% endblock %}
+{% block page_here %}
+<a><cite>编辑友情链接</cite></a>
+{% endblock %}
 {% block content %}
-<div style="padding: 15px;">
     <form class="layui-form" action="{{ url_for('backend.link_edit')}}" method="post">
        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
        <input type="hidden" name="id" value="{{ link.id }}">
@@ -39,5 +45,4 @@
         </div>
       </div>
     </form>
-</div>
 {% endblock %}

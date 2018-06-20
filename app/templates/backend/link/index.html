@@ -1,4 +1,14 @@
 {% extends "layout.html" %}
+{% block page_header%}友情链接{% endblock %}
+{% block search %}
+<div class="table-reload-btn" style="margin-bottom: 10px;">
+  <div class="layui-inline">
+    <input class="layui-input" name="那么" id="table-reload" placeholder="网站名称" autocomplete="off">
+  </div>
+  <button class="layui-btn" data-type="reload">搜索</button>
+  <button class="layui-btn" data-type="create" data-url="{{ url_for('backend.link_create') }}">创建</button>
+</div>
+{% endblock %}
 {% block content %}
 <table class="layui-hide" id="table-form" lay-filter="backend-table"></table>
 {% endblock %}

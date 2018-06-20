@@ -1,6 +1,12 @@
 {% extends "layout.html" %}
+{% block page_header%}
+<span class="layui-breadcrumb">
+<a href="{{ url_for('backend.users')}}">用户列表</a>
+{% endblock %}
+{% block page_here %}
+<a><cite>创建用户</cite></a>
+{% endblock %}
 {% block content %}
-<div style="padding: 15px;">
     <form class="layui-form" action="{{ url_for('backend.user_create')}}" method="post">
        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         <div class="layui-form-item">
@@ -49,5 +55,4 @@
         </div>
       </div>
     </form>
-</div>
 {% endblock %}
