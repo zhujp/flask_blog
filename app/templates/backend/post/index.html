@@ -1,8 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="layui-fluid">
-    <div class="layui-row layui-col-space15">
-      <div class="layui-col-md12">
+
         <div class="layui-card">
           <div class="layui-card-header">文章列表</div>
           <div class="layui-card-body">
@@ -16,9 +14,7 @@
             <table class="layui-hide" id="table-form" lay-filter="backend-table"></table>
             </div>
         </div>
-      </div>
-    </div>
-  </div>
+      
 {% endblock %}
 {% block script %}
 <script type="text/html" id="operate-bar">

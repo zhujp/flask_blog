@@ -1,6 +1,19 @@
 {% extends "layout.html" %}
 {% block content %}
+<div class="layui-card">
+          <div class="layui-card-header">用户列表</div>
+          <div class="layui-card-body">
+            <div class="table-reload-btn" style="margin-bottom: 10px;">
+              <div class="layui-inline">
+                <input class="layui-input" name="keyword" id="table-reload" value="用户名称" autocomplete="off">
+              </div>
+              <button class="layui-btn" data-type="reload">搜索</button>
+              <button class="layui-btn" data-type="create" data-url="{{ url_for('backend.user_create') }}">创建</button>
+            </div>
+
 <table class="layui-hide" id="table-form" lay-filter="backend-table"></table>
+</div>
+        </div>
 {% endblock %}
 {% block script %}
 <script type="text/html" id="operate-bar">
