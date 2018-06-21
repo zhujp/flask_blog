@@ -1,56 +1,23 @@
+{% from '_marco.html' import render_pagination %}
 {% extends 'app.html' %}
 {% block content %}
 <div class="row" id="pjax-container"> 
-
-            <!-- Content -->
-            <div id="content" class="8u skel-cell-important">
-                                <section class="zsection">
-                    <header>
-                        <h4><a href="https://www.bdelay.com/article/380">域名更换IP之后，让Chrome马上生效的办法</a></h4>
-                        
-                    </header>
-                    在开发的Web的时候，我们常遇到个问题，由于系统的要求，有限定特定的域名，因为测试域名没有解析到公网，导致了我们在测试服务器测试与本地测试需要不断的去更改hosts，由于浏览器的机制问题，更换了hosts里面的IP后，Chrome访问的还是原来的IP，通过ping的方式，却发现IP已经是新的IP。我之前要么是关闭浏览器重启，或者更换别的浏览器进行测试，用这样的方式保持浏览器页面不被关闭，方便继续测试。
-        }
-
-通过找资料发现这是由于Chrome 的Sockets的机制导致的。
-
-Chrome提供的ne
-                    <p>
-                                        Tags: <a href="https://www.bdelay.com/tag/1">PHP</a>  
-                     
-                    Posted:2018-06-16 &nbsp; By <span>vilay</span> &nbsp;In:<a href="https://www.bdelay.com/article/3">Coding</a></p>
-                </section>
-                                <section class="zsection">
-                    <header>
-                        <h4><a href="https://www.bdelay.com/article/379">Flask 学习笔记（三）－ORM</a></h4>
-                        
-                    </header>
-                    简述
-
-SQLAlchemy是个非常优秀的orm，flask可以根据自己的爱好使用orm，但是既然使用flask，首选当然是flask-sqlalchemy。
-
-安装
-
-pip3 install flask-sqlalchemy
-
-
-初始化
-
-from flask import Flask,render_template
-from flask_sqlalchemy import SQLAlchemy
-
-app = Flask(__name__)
-
-app.config['SQLALCHEMY_D
-                    <p>
-                                        Tags: <a href="https://www.bdelay.com/tag/37">Python</a>  <a href="https://www.bdelay.com/tag/38">Flask</a>  
-                     
-                    Posted:2018-06-10 &nbsp; By <span>vilay</span> &nbsp;In:<a href="https://www.bdelay.com/article/3">Coding</a></p>
-                </section>
-
-                <div class="col-md-12 text-right">
-                    <ul class="pagination"><li class="disabled"><span>«</span></li> <li class="active"><span>1</span></li><li><a href="https://www.bdelay.com/?page=2">2</a></li><li><a href="https://www.bdelay.com/?page=3">3</a></li><li><a href="https://www.bdelay.com/?page=4">4</a></li><li><a href="https://www.bdelay.com/?page=5">5</a></li><li><a href="https://www.bdelay.com/?page=6">6</a></li><li><a href="https://www.bdelay.com/?page=7">7</a></li><li><a href="https://www.bdelay.com/?page=8">8</a></li><li class="disabled"><span>...</span></li><li><a href="https://www.bdelay.com/?page=36">36</a></li><li><a href="https://www.bdelay.com/?page=37">37</a></li> <li><a href="https://www.bdelay.com/?page=2" rel="next">»</a></li></ul>
-                </div>
+    <!-- Content -->
+    <div id="content" class="8u skel-cell-important">
+        {% for post in posts %}
+        <section class="zsection">
+            <header>
+                <h4><a href="https://www.bdelay.com/article/380">{{ post.title }}</a></h4>
+            </header>
+            {{ post.body }}
+            <p>Tags: 
+                Posted:{{ post.created_at }} &nbsp; By <span>{{ post.author }}</span> &nbsp;In:
+                <a href="https://www.bdelay.com/article/3">Coding</a>
+            </p>
+        </section>
+        {% endfor %}                        
+            {{ render_pagination(pagination,url_for(".index")) }}
+                
             </div>
             <!-- Sidebar -->
             <div id="sidebar" class="4u">
