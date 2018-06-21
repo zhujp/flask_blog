@@ -7,16 +7,17 @@
         <meta name="description" content="{% block description %}{% endblock %}">
         <meta name="keywords" content="{% block keywords %}{% endblock %}">
         <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}" media="screen">
+        
+        <noscript>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
-        <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/skel-noscript.css') }}" /> -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/skel-noscript.css') }}" />
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style-desktop.css') }}" />
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/adminapp.css') }}" />
-    <style type="text/css">html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}table{border-collapse:collapse;border-spacing:0}body{-webkit-text-size-adjust:none}</style><style type="text/css">@-ms-viewport{width: device-width}</style><style type="text/css">*,*:before,*:after{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}</style><style type="text/css">body{min-width:1200px}.container{margin-left:auto;margin-right:auto;width:1200px}.container.small{width:900px}.container.big{width:100%;max-width:1500px;min-width:1200px}</style><style type="text/css">.\31 2u{width:100%}.\31 1u{width:91.6666666667%}.\31 0u{width:83.3333333333%}.\39 u{width:75%}.\38 u{width:66.6666666667%}.\37 u{width:58.3333333333%}.\36 u{width:50%}.\35 u{width:41.6666666667%}.\34 u{width:33.3333333333%}.\33 u{width:25%}.\32 u{width:16.6666666667%}.\31 u{width:8.3333333333%}.\-11u{margin-left:91.6666666667%}.\-10u{margin-left:83.3333333333%}.\-9u{margin-left:75%}.\-8u{margin-left:66.6666666667%}.\-7u{margin-left:58.3333333333%}.\-6u{margin-left:50%}.\-5u{margin-left:41.6666666667%}.\-4u{margin-left:33.3333333333%}.\-3u{margin-left:25%}.\-2u{margin-left:16.6666666667%}.\-1u{margin-left:8.3333333333%}</style><style type="text/css">.row>*{float:left;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}.row:after{content:'';display:block;clear:both;height:0}.row:first-child>*{padding-top:0!important}</style><style type="text/css">.row.flush{margin-left:0}.row.flush>*{padding:0!important}.row>*{padding-left:50px}.row+.row>*{padding:50px 0 0 50px}.row{margin-left:-50px}.row.half>*{padding-left:25px}.row+.row.half>*{padding:25px 0 0 25px}.row.half{margin-left:-25px}.row.quarter>*{padding-left:12.5px}.row+.row.quarter>*{padding:12.5px 0 0 12.5px}.row.quarter{margin-left:-12.5px}.row.oneandhalf>*{padding-left:75px}.row+.row.oneandhalf>*{padding:75px 0 0 75px}.row.oneandhalf{margin-left:-75px}.row.double>*{padding-left:100px}.row+.row.double>*{padding:100px 0 0 100px}.row.double{margin-left:-100px}</style><style type="text/css">.not-desktop{display:none!important}.only-mobile,.only-1000px{display:none!important}</style>
+        </noscript>
         <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
         <script src="{{ url_for('static', filename='js/skel.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/skel-panels.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/init.js') }}"></script>
-   
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/adminapp.css') }}" />
     {% endblock %}
     </head>
     <body>
@@ -54,87 +55,8 @@
 <!-- Main -->
 <div id="main">
     <div class="container">
-        <div class="row" id="pjax-container"> 
-
-            <!-- Content -->
-            <div id="content" class="8u skel-cell-important">
-                                <section class="zsection">
-                    <header>
-                        <h4><a href="https://www.bdelay.com/article/380">域名更换IP之后，让Chrome马上生效的办法</a></h4>
-                        
-                    </header>
-                    在开发的Web的时候，我们常遇到个问题，由于系统的要求，有限定特定的域名，因为测试域名没有解析到公网，导致了我们在测试服务器测试与本地测试需要不断的去更改hosts，由于浏览器的机制问题，更换了hosts里面的IP后，Chrome访问的还是原来的IP，通过ping的方式，却发现IP已经是新的IP。我之前要么是关闭浏览器重启，或者更换别的浏览器进行测试，用这样的方式保持浏览器页面不被关闭，方便继续测试。
-
-通过找资料发现这是由于Chrome 的Sockets的机制导致的。
-
-Chrome提供的ne
-                    <p>
-                                        Tags: <a href="https://www.bdelay.com/tag/1">PHP</a>  
-                     
-                    Posted:2018-06-16 &nbsp; By <span>vilay</span> &nbsp;In:<a href="https://www.bdelay.com/article/3">Coding</a></p>
-                </section>
-                                <section class="zsection">
-                    <header>
-                        <h4><a href="https://www.bdelay.com/article/379">Flask 学习笔记（三）－ORM</a></h4>
-                        
-                    </header>
-                    简述
-
-SQLAlchemy是个非常优秀的orm，flask可以根据自己的爱好使用orm，但是既然使用flask，首选当然是flask-sqlalchemy。
-
-安装
-
-pip3 install flask-sqlalchemy
-
-
-初始化
-
-from flask import Flask,render_template
-from flask_sqlalchemy import SQLAlchemy
-
-app = Flask(__name__)
-
-app.config['SQLALCHEMY_D
-                    <p>
-                                        Tags: <a href="https://www.bdelay.com/tag/37">Python</a>  <a href="https://www.bdelay.com/tag/38">Flask</a>  
-                     
-                    Posted:2018-06-10 &nbsp; By <span>vilay</span> &nbsp;In:<a href="https://www.bdelay.com/article/3">Coding</a></p>
-                </section>
-
-                {% block page %}
-                <div class="col-md-12 text-right">
-                    <ul class="pagination"><li class="disabled"><span>«</span></li> <li class="active"><span>1</span></li><li><a href="https://www.bdelay.com/?page=2">2</a></li><li><a href="https://www.bdelay.com/?page=3">3</a></li><li><a href="https://www.bdelay.com/?page=4">4</a></li><li><a href="https://www.bdelay.com/?page=5">5</a></li><li><a href="https://www.bdelay.com/?page=6">6</a></li><li><a href="https://www.bdelay.com/?page=7">7</a></li><li><a href="https://www.bdelay.com/?page=8">8</a></li><li class="disabled"><span>...</span></li><li><a href="https://www.bdelay.com/?page=36">36</a></li><li><a href="https://www.bdelay.com/?page=37">37</a></li> <li><a href="https://www.bdelay.com/?page=2" rel="next">»</a></li></ul>
-                </div>
-                {% endblock %}
-            </div>
-            {% block sidebar %}
-            <!-- Sidebar -->
-            <div id="sidebar" class="4u">
-                <section>
-                    <header>
-                        <h2>Vilay nominate</h2>
-                    </header>
-                    <ul class="style">
-                                                
-                        <li>
-                            <a href="https://www.bdelay.com/article/34">
-                            <p class="posted">Mac OS X 下tar.gz包安装Mysql - 2015-11-13  </p>
-                            </a>
-                            <img src="./index_files/linux.jpg" alt="">
-                            <p class="text">刚接触Mac系统记录下搭建php环境中遇到的坑，这篇文章介绍下tar.gz 包安装Mysql的过程。Mysql下载地址
-
-首先，进入下载的文件目录，一般是
-
-cd ~/Downloads
-
-</p>
-                        </li>
-                    </ul>
-                </section>
-               
-            </div> 
-            {% endblock %}
-        </div>
+        {% block content %}{% endblock %}
+        
     </div>
 </div>
 <!-- main end-->
@@ -148,7 +70,6 @@ cd ~/Downloads
         </div>
 
     </div>
-    <div id="skel-panels-defaultWrapper" style="height: 100%;"></div>
-    <div id="skel-panels-fixedWrapper" style="position: relative;"></div>
+    
     </body>
 </html>

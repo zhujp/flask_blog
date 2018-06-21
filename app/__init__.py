@@ -29,7 +29,7 @@ def create_app(config_name):
     csrf.init_app(app)
 
     from .frontend import frontend as frontend_blueprint
-    app.register_blueprint(frontend_blueprint)
+    app.register_blueprint(frontend_blueprint, url_prefix='/')
 
     from .backend import backend as backend_blueprint
     app.register_blueprint(backend_blueprint, url_prefix='/backend')

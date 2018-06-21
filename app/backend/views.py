@@ -3,7 +3,7 @@ from flask import render_template, redirect, request, url_for, flash
 from . import backend
 from .forms import LoginForm
 from flask_login import login_user,login_required,logout_user
-from ..models import User, Category, Label,Post, Link, Setting
+from ..models import User, Category, Label,Post, Link, Setting, PostLabel
 from .. import db
 from .helper import json_data, json_lists
 from datetime import datetime
@@ -131,6 +131,16 @@ def post_create():
             created_at=datetime.utcnow())
         db.session.add(post)
         db.session.commit()
+        
+        #文章标签
+        # for v in request.form.getlist('label'):
+        #     post_label = PostLabel(
+        #         post_id = post.id,
+        #         label_id = v
+        #         )
+        #     db.session.add(post_label)
+        #     db.session.commit()
+        # return json_data('',json.dumps(request.form.getlist('label')),0)
         return json_data(url_for('backend.posts'),'创建成功')
     category = Category.query.filter_by(enabled=True).all()
     labels = Label.query.filter_by(enabled=True).all()
@@ -153,7 +163,9 @@ def post_edit():
     else:
         id = request.args.get('id',0, type=int)
         post = Post.query.filter_by(id=id).first_or_404()
-    return render_template('backend/post/edit.html',post=post)
+        category = Category.query.filter_by(enabled=True).all()
+        labels = Label.query.filter_by(enabled=True).all()
+        return render_template('backend/post/edit.html',post=post,category=category,labels=labels)
 
 
 @backend.route('/post/del')

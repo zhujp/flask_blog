@@ -5,27 +5,28 @@
 <a href="{{ url_for('backend.posts')}}">文章列表</a>
 {% endblock %}
 {% block page_here %}
-<a><cite>创建文章</cite></a>
+<a><cite>编辑文章</cite></a>
 {% endblock %}
 {% block content %}
 
-    <form class="layui-form" action="{{ url_for('backend.post_create')}}" method="post">
+    <form class="layui-form" action="{{ url_for('backend.post_edit')}}" method="post">
+      <input type="hidden" name="id" value="{{ post.id }}">
         <div class="layui-form-item">
             <label class="layui-form-label">标题</label>
             <div class="layui-input-block">
-              <input type="text" name="title" lay-verify="required" autocomplete="off" placeholder="请输入标题" class="layui-input">
+              <input type="text" name="title" lay-verify="required" autocomplete="off" value="{{ post.title }}" placeholder="请输入标题" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">关键字</label>
             <div class="layui-input-block">
-              <input type="text" name="keywords" lay-verify="required" autocomplete="off" placeholder="请输入关键字" class="layui-input">
+              <input type="text" name="keywords" lay-verify="required" autocomplete="off" value="{{ post.keywords }}" placeholder="请输入关键字" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">作者</label>
             <div class="layui-input-block">
-              <input type="text" name="author" autocomplete="off" placeholder="请输入作者" class="layui-input">
+              <input type="text" name="author"  value="{{ post.author }}" autocomplete="off" placeholder="请输入作者" class="layui-input">
             </div>
         </div>
         
@@ -35,7 +36,7 @@
       <select name="cat_id">
         <option value="0"></option>
         {% for cat in category %}
-        <option value="{{ cat.id }}">{{ cat.name }}</option>
+        <option value="{{ cat.id }}" {% if post.cat_id == cat.id %}selected{% endif %}>{{ cat.name }}</option>
         {% endfor %}
       </select>
     </div>
@@ -43,7 +44,7 @@
         <div class="layui-form-item layui-form-text">
         <label class="layui-form-label">内容</label>
         <div class="layui-input-block">
-          <textarea id="md" placeholder="请输入内容" class="layui-textarea" name="body"></textarea>
+          <textarea id="md" placeholder="请输入内容" class="layui-textarea" name="body">{{ post.body }}</textarea>
         </div>
       </div>
       <div class="layui-form-item" pane="">
@@ -57,7 +58,7 @@
       <div class="layui-form-item">
         <label class="layui-form-label">启用</label>
         <div class="layui-input-block">
-          <input type="checkbox" value="1" checked="" name="enabled" lay-skin="switch" lay-filter="switchTest" lay-text="启用|关闭">
+          <input type="checkbox" value="1" {% if post and post.enabled == True%}checked=""{% endif %} name="enabled" lay-skin="switch" lay-filter="switchTest" lay-text="启用|关闭">
         </div>
       </div>
 

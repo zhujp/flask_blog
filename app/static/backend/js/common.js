@@ -73,6 +73,10 @@ layui.define(['layer', 'form', 'element', 'upload', 'laydate','table'], function
         if (method == '' || method == null) {
             method = 'POST';
         }
+        if (typeof simplemde != "undefined") {
+            data.field.body = simplemde.value();
+            $('#md').val(simplemde.value());
+        } 
         //修改提交格式
         var new_data = $(data.form).serialize(); //此处新增表单数据提交方式
         ajaxRequest(data.form.action,new_data,method,1);
