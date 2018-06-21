@@ -1,0 +1,258 @@
+/*
+	Iridium by TEMPLATED
+    templated.co @templatedco
+    Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+*/
+
+/*********************************************************************************/
+/* Basic                                                                         */
+/*********************************************************************************/
+
+	body
+	{
+	}
+
+	body,input,textarea,select
+	{
+		font-size: 11pt;
+	}
+
+/*********************************************************************************/
+/* Header                                                                        */
+/*********************************************************************************/
+
+	#header
+	{
+		position: relative;
+		padding: 1.5em 0em;
+		text-align: center;
+	}
+	
+		.homepage #header
+		{
+			padding: 15em 0em;
+		}
+
+		#header .container
+		{
+		}
+
+/*********************************************************************************/
+/* Logo                                                                          */
+/*********************************************************************************/
+
+	#logo
+	{
+		margin-bottom: 1.2em;
+	}
+	
+		#logo h1
+		{
+			color: #FFF;
+		}
+	
+		#logo h1 a
+		{
+			display: block;
+			letter-spacing: 1px;
+			text-decoration: none;
+			text-transform: uppercase;
+			font-size: 1.8em;
+			font-weight: bolder;
+			color: #FFF;
+		}
+
+		#logo span
+		{
+			display: block;
+			/*padding-top: 1em;*/
+			letter-spacing: 1px;
+			//text-transform: uppercase;
+			font-size: 1.1em;
+			color: #c7254e;
+		}			
+			
+
+/*********************************************************************************/
+/* Nav                                                                           */
+/*********************************************************************************/
+
+	#nav
+	{
+	}
+
+		#nav > ul > li
+		{
+			display: inline-block;
+		}
+		
+			#nav > ul > li:last-child
+			{
+				padding-right: 0;
+			}
+
+			#nav > ul > li > a,
+			#nav > ul > li > span
+			{
+				display: block;
+				padding: 1em 1.5em;
+				letter-spacing: 1px;
+				text-decoration: none;
+				/*text-transform: uppercase;*/
+				font-weight: bold;
+				font-size: 1.1em;
+				outline: 0;
+				color: #c7254e;
+			}
+
+
+			#nav > ul > li > a:hover
+			{
+				color: #CD92A1;
+				
+			}
+
+			#nav li.active a
+			{
+				background: none;
+				border-radius: 40px;
+				border: 2px solid;
+				border-color: #CD92A1;
+				color: #CD92A1;
+			}
+
+			#nav > ul > li > ul
+			{
+				display: none;
+			}
+
+
+/*********************************************************************************/
+/* Main                                                                          */
+/*********************************************************************************/
+
+	#main
+	{
+		padding: 6em 0em 2em 0em;
+	}
+	
+	#content
+	{
+	}
+	
+	#content header
+	{
+		margin-bottom: 2em;
+	}
+	
+	#content header h2
+	{
+		font-size: 2em;
+	}
+	
+	#content header .byline
+	{
+		font-size: 1.40em;
+	}
+	
+	#sidebar h2
+	{
+		display: block;
+		padding-bottom: 2em;
+		font-size: 1.4em;
+	}
+
+/*********************************************************************************/
+/* Featured                                                                      */
+/*********************************************************************************/
+	
+	#featured
+	{
+		padding: 3em 0em;
+	}
+
+/*********************************************************************************/
+/* Footer                                                                        */
+/*********************************************************************************/
+	
+	#footer
+	{
+		position: relative;
+		padding: 6em 0em;
+	}
+	
+	#footer h2
+	{
+		padding-bottom: 2em;
+		font-size: 1.4em;
+	}
+	
+/*********************************************************************************/
+/* Copyright                                                                     */
+/*********************************************************************************/
+	
+	#copyright
+	{
+		padding: 3em 0em;
+	}		
+
+#logo h1 a img{
+	border-radius: 110px;
+}
+
+#logo h1 a img {
+	width: 90px;
+	height: 90px;
+}
+div.znotice span {
+	color:#c7254e;
+}
+
+div#featured div.container div.row>div {
+	width: 100%;
+	line-height: 2.5em;
+	margin-bottom: 5px;
+	background: #fff;
+}
+div#featured div.container div.row>div>p>span,div#featured div.container div.row>div>p>i {
+	color:#c7254e;
+	font-size: 1.2em;
+	font-weight: bolder;
+}
+
+.myreply {
+	color:#c7254e;
+	font-size: 1.2em;
+	font-weight: bolder;
+}
+
+#sidebar > section > ul>li:last-child img {
+ 	width:100%;
+ 	height:300px;
+}
+
+#content section table {
+    width: 100%;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-collapse: collapse;
+    border-left: none;
+    word-break: normal
+}
+#content section table tr:nth-of-type(2n) {
+    background-color: hsla(0,0%,71%,.1)
+}
+#content section table thead th {
+    vertical-align: middle;
+    text-align: inherit
+}
+#content section table td,table th {
+    padding: 8px;
+    border: 1px solid #ddd;
+    line-height: 20px;
+    vertical-align: middle
+}
+#content section table th {
+    font-weight: 700
+}
+
