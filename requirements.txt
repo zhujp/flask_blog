@@ -2,6 +2,7 @@ alembic==0.9.9
 click==6.7
 Flask==1.0.2
 Flask-Login==0.4.1
+Flask-Markdown==0.3
 Flask-Migrate==2.1.1
 Flask-Moment==0.6.0
 Flask-Script==2.0.6
@@ -10,6 +11,7 @@ Flask-WTF==0.14.2
 itsdangerous==0.24
 Jinja2==2.10
 Mako==1.0.7
+Markdown==2.6.11
 MarkupSafe==1.0
 PyMySQL==0.8.1
 python-dateutil==2.7.3
