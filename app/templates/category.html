@@ -1,138 +1,21 @@
+{% from '_marco.html' import render_pagination %}
 {% extends 'app.html' %}
+{% block title %}{{ category.name }}-{% endblock %}
 {% block content %}
 <div class="row" id="pjax-container"> 
-                    
-                    <!-- Content -->
-                    <div id="content" class="12u skel-cell-important">
-                                                                            <section class="zsection">
-                                <header>
-                                    <h4><a href="https://www.bdelay.com/article/380">域名更换IP之后，让Chrome马上生效的办法</a>&nbsp;&nbsp;</h4>
-                                </header>
-                                在开发的Web的时候，我们常遇到个问题，由于系统的要求，有限定特定的域名，因为测试域名没有解析到公网，导致了我们在测试服务器测试与本地测试需要不断的去更改hosts，由于浏览器的机制问题，更换了hosts里面的IP后，Chrome访问的还是原来的IP，通过pi
-                                <p>
-                                                                Tags: <a href="https://www.bdelay.com/tag/1">PHP</a>                                                                 Posted:2018-06-16&nbsp;&nbsp;By<span> vilay</span></p>
-                            </section>
-                                                    <section class="zsection">
-                                <header>
-                                    <h4><a href="https://www.bdelay.com/article/379">Flask 学习笔记（三）－ORM</a>&nbsp;&nbsp;</h4>
-                                </header>
-                                简述
-SQLAlchemy是个非常优秀的orm，flask可以根据自己的爱好使用orm，但是既然使用flask，首选当然是flask-sqlalchemy。
-安装
-pip3 install flask-sqlalchemy
-初始化
-from flask imp
-                                <p>
-                                                                Tags: <a href="https://www.bdelay.com/tag/37">Python</a>  <a href="https://www.bdelay.com/tag/38">Flask</a>                                                                 Posted:2018-06-10&nbsp;&nbsp;By<span> vilay</span></p>
-                            </section>
-                                                    <section class="zsection">
-                                <header>
-                                    <h4><a href="https://www.bdelay.com/article/377">Flask 学习笔记（四）－ 静态文件</a>&nbsp;&nbsp;</h4>
-                                </header>
-                                Flask模版文件中引入静态文件的方法
-1. 第一种方法
-使用路径直接写死
-&lt;link rel="stylesheet" type="text/css" href="/static/css/style.css"&gt;
-2. 第二种方法
-使用模版函数ur
-                                <p>
-                                                                Tags: <a href="https://www.bdelay.com/tag/37">Python</a>  <a href="https://www.bdelay.com/tag/38">Flask</a>                                                                 Posted:2018-06-10&nbsp;&nbsp;By<span> vilay</span></p>
-                            </section>
-                                                    <section class="zsection">
-                                <header>
-                                    <h4><a href="https://www.bdelay.com/article/376">Flask 学习笔记（三）－模版</a>&nbsp;&nbsp;</h4>
-                                </header>
-                                Flask 的模版引擎使用的是Jinja2 Jinja2
-示例代码（项目文件index.py）：
-from flask import Flask
-from flask import render_template
-
-app = Flask(__name__)
-
-                                <p>
-                                                                Tags: <a href="https://www.bdelay.com/tag/37">Python</a>  <a href="https://www.bdelay.com/tag/38">Flask</a>                                                                 Posted:2018-06-10&nbsp;&nbsp;By<span> vilay</span></p>
-                            </section>
-                                                    <section class="zsection">
-                                <header>
-                                    <h4><a href="https://www.bdelay.com/article/375">Flask 学习笔记（二）－调试模式</a>&nbsp;&nbsp;</h4>
-                                </header>
-                                flask在使用命令启动之后
-FLASK_APP=index.py flask run
-如果新增了路由，又需要重启，这导致了开发的时候非常麻烦，Flask默认情况下环境是
-* Environment: production
-     WARNING: Do n
-                                <p>
-                                                                Tags: <a href="https://www.bdelay.com/tag/37">Python</a>  <a href="https://www.bdelay.com/tag/38">Flask</a>                                                                 Posted:2018-06-10&nbsp;&nbsp;By<span> vilay</span></p>
-                            </section>
-                                                    <section class="zsection">
-                                <header>
-                                    <h4><a href="https://www.bdelay.com/article/374">Flask 学习笔记（－）</a>&nbsp;&nbsp;</h4>
-                                </header>
-                                1.安装flask
-使用pip安装flask
-pip3 install -U Flask
-2.第一个flask程序
-新建flask的目录
-mkdir -p www/flask
-新建一个python文件(index.py)，放在flask目录下
-from fla
-                                <p>
-                                                                Tags: <a href="https://www.bdelay.com/tag/37">Python</a>  <a href="https://www.bdelay.com/tag/38">Flask</a>                                                                 Posted:2018-06-09&nbsp;&nbsp;By<span> vilay</span></p>
-                            </section>
-                                                    <section class="zsection">
-                                <header>
-                                    <h4><a href="https://www.bdelay.com/article/372">PHP 实用函数篇</a>&nbsp;&nbsp;</h4>
-                                </header>
-                                error_get_last()- 获取最后发生的错误
-示例：
-&lt;?php
-echo $a;
-print_r(error_get_last());
-结果：
-Array
-(
-        [type] =&gt; 8
-        [message] 
-                                <p>
-                                                                Tags: <a href="https://www.bdelay.com/tag/1">PHP</a>  <a href="https://www.bdelay.com/tag/10">PHP7</a>                                                                 Posted:2018-06-06&nbsp;&nbsp;By<span> vilay</span></p>
-                            </section>
-                                                    <section class="zsection">
-                                <header>
-                                    <h4><a href="https://www.bdelay.com/article/370">一个有意思的PHP函数－levenshtein</a>&nbsp;&nbsp;</h4>
-                                </header>
-                                发现一个有意思的PHP函数 levenshtein(),计算两个字符串之间的编辑距离。
-官网链接levenshtein
-官网描述：
-编辑距离，是指两个字串之间，通过替换、插入、删除等操作将字符串str1转换成str2所需要操作的最少字符数量。 该算法的复杂度是
-                                <p>
-                                                                Tags: <a href="https://www.bdelay.com/tag/1">PHP</a>  <a href="https://www.bdelay.com/tag/10">PHP7</a>                                                                 Posted:2018-06-03&nbsp;&nbsp;By<span> vilay</span></p>
-                            </section>
-                                                    <section class="zsection">
-                                <header>
-                                    <h4><a href="https://www.bdelay.com/article/368">Restful 风格可能存在的几个安全问题</a>&nbsp;&nbsp;</h4>
-                                </header>
-                                随着restful的流行，现在微服务以及很多api相关应用都采用这种架构风格进行设计。
-好处显而易见，但是还是要注意其伴随的安全问题
-1.遗漏了对资源从属关系的检查
-例如：/users/10
-有没有验证当前登陆的是否是id为10的用户？如果填的是其它id是否能
-                                <p>
-                                                                Tags: <a href="https://www.bdelay.com/tag/1">PHP</a>                                                                 Posted:2018-06-03&nbsp;&nbsp;By<span> vilay</span></p>
-                            </section>
-                                                    <section class="zsection">
-                                <header>
-                                    <h4><a href="https://www.bdelay.com/article/367">PHP Reload</a>&nbsp;&nbsp;</h4>
-                                </header>
-                                在修改了php的配置之后，需要重启才能够生效。之前我大部分都是直接restart进行重启操作。
-重启有一个坑，就是必须保证当前应用没有用户或者业务在跑，否则进程会销毁终止。
-除了restart之外还有一个reload的操作，一般来说reload相对于resta
-                                <p>
-                                                                Tags: <a href="https://www.bdelay.com/tag/1">PHP</a>  <a href="https://www.bdelay.com/tag/5">Linux</a>                                                                 Posted:2018-06-03&nbsp;&nbsp;By<span> vilay</span></p>
-                            </section>
-                                                                        <div class="col-md-12 text-center">
-                            <ul class="pagination"><li class="disabled"><span>«</span></li> <li class="active"><span>1</span></li><li><a href="https://www.bdelay.com/category/3?page=2">2</a></li><li><a href="https://www.bdelay.com/category/3?page=3">3</a></li><li><a href="https://www.bdelay.com/category/3?page=4">4</a></li><li><a href="https://www.bdelay.com/category/3?page=5">5</a></li><li><a href="https://www.bdelay.com/category/3?page=6">6</a></li><li><a href="https://www.bdelay.com/category/3?page=7">7</a></li><li><a href="https://www.bdelay.com/category/3?page=8">8</a></li><li class="disabled"><span>...</span></li><li><a href="https://www.bdelay.com/category/3?page=16">16</a></li><li><a href="https://www.bdelay.com/category/3?page=17">17</a></li> <li><a href="https://www.bdelay.com/category/3?page=2" rel="next">»</a></li></ul>
-                        </div>
-                    </div>
-                    
-                </div>
+    <!-- Content -->
+    <div id="content" class="12u skel-cell-important">
+        {% for post in posts %}
+        <section class="zsection">
+            <header>
+                <h4><a href="{{ url_for('.post',id=post.id )}}">{{ post.title }}</a>&nbsp;&nbsp;</h4>
+            </header>
+            {{ post.body|truncate(250, True,'...') }}
+            <p> 
+                Posted:{{ post.created_at.strftime('%Y-%m-%d') }}&nbsp;&nbsp;By<span> {{ post.author }}</span></p>
+        </section>
+        {% endfor %}
+        {{ render_pagination(pagination,url_for(".category",id=id)) }}
+    </div>
+</div>
 {% endblock %}

@@ -4,6 +4,7 @@ from flask_moment import Moment
 from config import config
 from flask_login import LoginManager
 from flask_wtf.csrf import CSRFProtect
+from flaskext.markdown import Markdown
 
 login_manager = LoginManager()
 login_manager.session_protection = 'strong'
@@ -12,6 +13,7 @@ login_manager.login_view = 'backend.login'
 moment = Moment()
 db = SQLAlchemy()
 csrf = CSRFProtect()
+
 
 UPLOAD_FOLDER = '/uploads'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
@@ -27,6 +29,7 @@ def create_app(config_name):
     db.init_app(app)
     login_manager.init_app(app)
     csrf.init_app(app)
+    markdown = Markdown(app)
 
     from .frontend import frontend as frontend_blueprint
     app.register_blueprint(frontend_blueprint, url_prefix='/')

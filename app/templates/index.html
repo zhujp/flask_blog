@@ -7,12 +7,10 @@
         {% for post in posts %}
         <section class="zsection">
             <header>
-                <h4><a href="https://www.bdelay.com/article/380">{{ post.title }}</a></h4>
+                <h4><a href="{{ url_for('.post',id=post.id )}}">{{ post.title }}</a></h4>
             </header>
-            {{ post.body }}
-            <p>Tags: 
-                Posted:{{ post.created_at }} &nbsp; By <span>{{ post.author }}</span> &nbsp;In:
-                <a href="https://www.bdelay.com/article/3">Coding</a>
+            {{ post.body|truncate(250, True,'...') }}
+            <p> Posted:{{ post.created_at.strftime('%Y-%m-%d')}} &nbsp; By <span>{{ post.author }}</span>
             </p>
         </section>
         {% endfor %}                        

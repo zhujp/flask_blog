@@ -1,31 +1,42 @@
 from flask import render_template, redirect, request, url_for, flash
 from . import frontend
 from ..models import Category, Label, Post, Link,Setting
+from datetime import datetime
 
 @frontend.route('/')
 def index():
-    nav = Category.query.filter_by(enabled=True).all()
     page = request.args.get('page',1, type=int)
     pagination = Post.query.filter_by(enabled=True).order_by(Post.created_at.desc()).paginate(page,per_page=15,error_out=False)
     posts = pagination.items
-    for post in posts:
-        post.body = post.body[0:250]
 
-    sets = Setting.query.all()
-    site = {}
-    for s in sets:
-        site[s.name] = s.value
-    return render_template('index.html',nav=nav,posts=posts,site=site,pagination=pagination)
+    return render_template('index.html',posts=posts,pagination=pagination,current_time=datetime.utcnow())
 
 
 @frontend.route('/category/<int:id>')
 def category(id):
-    return render_template('category.html')
+    page = request.args.get('page',1, type=int)
+    pagination = Post.query.filter_by(enabled=True,cat_id=id).order_by(Post.created_at.desc()).paginate(page,per_page=15,error_out=False)
+    posts = pagination.items
+    category = Category.query.filter_by(id=id).first()
+
+    return render_template('category.html',posts=posts,pagination=pagination,id=id,category=category)
 
 @frontend.route('/article/<int:id>')
 def post(id):
-    return render_template('post.html')
+    post = Post.query.filter_by(id=id).first()
+    post.views = post.views+1
+    return render_template('post.html',post=post)
 
 @frontend.route('/search')
 def search():
     return render_template('search.html')
+
+@frontend.context_processor
+def common():
+    nav = Category.query.filter_by(enabled=True).all()    
+    sets = Setting.query.all()
+    site = {}
+    for s in sets:
+        site[s.name] = s.value
+    links = Link.query.filter_by(enabled=True).order_by(Link.sort.asc()).all()
+    return dict(site=site,nav=nav,links=links)

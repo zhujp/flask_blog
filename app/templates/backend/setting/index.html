@@ -10,10 +10,22 @@
             </div>
        </div>
        <div class="layui-form-item">
+            <label class="layui-form-label">简介</label>
+            <div class="layui-input-block">
+                <input type="text" name="title_intro" required autocomplete="off" value="{{ set_data.title_intro}}" placeholder="请输入简介" value="" class="layui-input">
+            </div>
+       </div>
+       <div class="layui-form-item">
+            <label class="layui-form-label">底部描述</label>
+            <div class="layui-input-block">
+                <input type="text" name="footer" required autocomplete="off" value="{{ set_data.footer}}" placeholder="请输入底部描述" value="" class="layui-input">
+            </div>
+       </div>
+       <div class="layui-form-item">
             <label class="layui-form-label">Logo</label>
            <div class="layui-upload">
               <button type="button" class="layui-btn" id="image">上传Logo</button>
-              <input type="hidden" name="logo">
+              <input type="hidden" name="logo" value="{{ set_data.logo }}">
               <div class="layui-upload-list">
                 <img style="width: 100px;height: 100px;margin-left: 110px;" class="layui-upload-img" id="image-src" src="{% if set_data %}{{ set_data.logo }}{% endif %}">
                 <p id="failText"></p>

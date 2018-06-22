@@ -3,8 +3,8 @@
     <head>
         {% block head %}
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>{% block title %}{% endblock %}</title>
-        <meta name="description" content="{% block description %}{% endblock %}">
+        <title>{% block title %}{% endblock %}{{ site.site_name }}</title>
+        <meta name="description" content="{{ site.introduction }}">
         <meta name="keywords" content="{% block keywords %}{% endblock %}">
         <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}" media="screen">
         
@@ -17,6 +17,8 @@
         <script src="{{ url_for('static', filename='js/skel.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/skel-panels.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/init.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/moment-with-locales.min.js') }}"></script>
+        {{ moment.lang("zh-CN") }}
         <link rel="stylesheet" href="{{ url_for('static', filename='css/adminapp.css') }}" />
     {% endblock %}
     </head>
@@ -28,20 +30,23 @@
 
                     <!-- Logo -->
                     <div id="logo">
-                        <h1><a href="https://www.bdelay.com/"><img src="./index_files/graph.png" alt="浮木网"></a></h1>
-                        <span class="text-transform:none;">I am a slow walker,but I never walk backwords.</span>
+                        <h1><a href="/"><img src="{{ site.logo }}" alt="{{ site.site_name }}"></a></h1>
+                        <span class="text-transform:none;">{{ site.title_intro }}</span>
                     </div>
 
                     <!-- Nav -->
                     <nav id="nav">
                         <ul>
-                            <li class=""><a href="https://www.bdelay.com/" title="Home">Home 
+                            <li class=""><a href="/" title="Home">Home</a></li>
+                            {% for v in nav %}
+                            <li class=""><a href="{{ url_for('.category',id=v.id)}}" title="{{ v.name }}">{{ v.name }} 
                                 </a></li>
-                            <li class=""><a href="https://www.bdelay.com/category/3" title="Coding">Coding</a></li>
+                            {% endfor %}
+                            
                             
                             <li>
-                                <form action="https://www.bdelay.com/search" method="post">
-                                    <input type="hidden" name="_token" value="Fue0y5AHQXtvqA0PF7Ec11qP9tJ7IXOdMU2iNc8l">
+                                <form action="{{ url_for('.search')}}" method="post">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                                     <input type="text" name="keyword" placeholder="请输入关键字">
                                     <input type="submit" id="keysearch" value="搜索">
                                 </form>
@@ -61,13 +66,18 @@
 </div>
 <!-- main end-->
         <!-- Copyright -->
+        
         <div id="copyright">
+            {% if links %}
             <div class="container">
-                友情链接：</div>
+                友情链接：{% for link in links %}<a href="{{ link.url }}" target="_blank">{{ link.name }}</a>{% endfor %}
+            </div>
+            {% endif %}
             <div class="container">
-                We are all so young.And we are also that sank.
+                {{ site.footer }}
             </div>
         </div>
+        
 
     </div>
     
