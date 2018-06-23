@@ -11,7 +11,7 @@ class Config:
 
 class DevelopmentConfig(Config):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or 'mysql+pymysql://root:34130707@127.0.0.1:3306/flask_blog?charset=utf8'
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or 'mysql+pymysql://root:123456@127.0.0.1:3306/flask_blog?charset=utf8'
     SQLALCHEMY_TRACK_MODIFICATIONS = True
 
 
