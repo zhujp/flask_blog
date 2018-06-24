@@ -15,7 +15,7 @@
                 Posted:{{ post.created_at.strftime('%Y-%m-%d') }}&nbsp;&nbsp;By<span> {{ post.author }}</span></p>
         </section>
         {% endfor %}
-        {{ render_pagination(pagination,url_for(".category",id=id)) }}
+        {{ render_pagination(pagination,url_for(".category",id=id),1) }}
     </div>
 </div>
 {% endblock %}

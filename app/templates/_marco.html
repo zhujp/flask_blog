@@ -1,8 +1,10 @@
-{% macro render_pagination(pagination,page_url) %}
-<div class="col-md-12 text-right">
+{% macro render_pagination(pagination,page_url,position=0) %}
+<div class="col-md-12 {% if position == 0 %}text-right{% else:%}text-center{% endif %}">
     <ul class="pagination">
         {% if pagination.has_prev %}
+            <li>
             <a href="{{ page_url }}?page={{pagination.prev_num}}" rel="prev">«</a>
+            </li>
         {% else %}
             <li class="disabled"><span>«</span></li> 
         {% endif %}
