@@ -11,8 +11,6 @@
     
     create database app_name charset=utf8;
     
-这步我有遇到过一个问题，要注意下，如果没有设置字符集为`utf8`，在后面执行数据迁移的时候，创建的表字符集以及字段都是`latin1`，从其它库迁移数据的时候会乱码。
-
 进入项目的目录`cd /www/app_name`
 
 第三步：基础环境搭建
@@ -59,7 +57,6 @@ nginx配置：
             }
     }
     
-nginx基础配置，可以参考博客其它nginx的文章。
     
 gunicorn的安装
     
@@ -70,25 +67,7 @@ gunicorn的安装
     gunicorn -b 127.0.0.1:123456 manage:app
     
 `端口号要与nginx中的一致，manage是启动文件的名称，app是里面应用的名称`
-
-遇到的问题：
-    
-(1) bash: gunicorn: command not found
-
-启动的时候，找不到这个命令，不懂是不是因为我的服务器有多个版本的python，所以在安装完成之后没办法直接当作命令用。
-
-解放办法:使用全路径，比如`/usr/local/python3/bin/gunicorn -b 127.0.0.1:9345 manage:app`
-
-(2) 静态资源文件丢失
-
-使用代理方式导致了静态资源文件无法访问
-
-解决办法：nginx配置中新增下面这段
-    
-    location /static/ {
-            alias /www/app_name/app/static/;  # 项目静态资源文件地址
-    }
-    
+ 
     
 第七步：后台新增管理员，否则无法登录
     
