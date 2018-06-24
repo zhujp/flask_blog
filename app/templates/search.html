@@ -1,0 +1,20 @@
+{% from '_marco.html' import render_pagination %}
+{% extends 'app.html' %}
+{% block content %}
+<div class="row" id="pjax-container"> 
+    <!-- Content -->
+    <div id="content" class="12u skel-cell-important">
+        {% for post in posts %}
+        <section class="zsection">
+            <header>
+                <h4><a href="{{ url_for('.post',id=post.id )}}">{{ post.title }}</a>&nbsp;&nbsp;</h4>
+            </header>
+            {{ post.body|truncate(250, True,'...') }}
+            <p> 
+                Posted:{{ post.created_at.strftime('%Y-%m-%d') }}&nbsp;&nbsp;By<span> {{ post.author }}</span></p>
+        </section>
+        {% endfor %}
+        {{ render_pagination(pagination,url_for(".search",id=id),1) }}
+    </div>
+</div>
+{% endblock %}

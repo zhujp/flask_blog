@@ -28,8 +28,8 @@ layui.use('table', function(){
     ,url:'{{ url_for("backend.posts")}}'
     ,cols: [[
       {field:'id', width:80, title: 'ID', sort: true}
-      ,{field:'title',  title: '标题'}
-      ,{field:'author', title: '作者'}
+      ,{field:'title',width:300,  title: '标题'}
+      ,{field:'author',width:80, title: '作者'}
       ,{field:'cat_name',  title: '分类'}
       ,{field:'created_at',  title: '创建时间', sort: true}
       ,{field:'enabled', title: '状态', sort: true}
