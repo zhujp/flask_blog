@@ -21,23 +21,18 @@
             <div id="sidebar" class="4u">
                 <section>
                     <header>
-                        <h2>Vilay nominate</h2>
+                        <h2>浏览排行</h2>
                     </header>
                     <ul class="style">
-                                                
+                        {% for es in essence %}                        
                         <li>
-                            <a href="https://www.bdelay.com/article/34">
-                            <p class="posted">Mac OS X 下tar.gz包安装Mysql - 2015-11-13  </p>
+                            <a href="{{ url_for('.post',id=es.id )}}">
+                            <p class="posted">{{ es.title }} - {{ es.created_at.strftime('%Y-%m-%d')}}  </p>
                             </a>
-                            <img src="./index_files/linux.jpg" alt="">
-                            <p class="text">刚接触Mac系统记录下搭建php环境中遇到的坑，这篇文章介绍下tar.gz 包安装Mysql的过程。Mysql下载地址
-
-首先，进入下载的文件目录，一般是
-
-cd ~/Downloads
-
-</p>
+                            <!-- <img src="./index_files/linux.jpg" alt=""> -->
+                            <p class="text">{{ es.body|truncate(120, True,'...') }}</p>
                         </li>
+                        {% endfor %}
                     </ul>
                 </section>
                

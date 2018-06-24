@@ -9,7 +9,9 @@ def index():
     pagination = Post.query.filter_by(enabled=True).order_by(Post.created_at.desc()).paginate(page,per_page=15,error_out=False)
     posts = pagination.items
 
-    return render_template('index.html',posts=posts,pagination=pagination,current_time=datetime.utcnow())
+    essence = Post.query.filter_by(enabled=True).order_by(Post.views.desc()).limit(6);
+
+    return render_template('index.html',posts=posts,pagination=pagination,current_time=datetime.utcnow(),essence=essence)
 
 
 @frontend.route('/category/<int:id>')
