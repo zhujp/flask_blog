@@ -17,7 +17,7 @@ class DevelopmentConfig(Config):
 
 
 class ProductionConfig(Config):
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or 'mysql://'+os.path.join(basedir,'data.mysql')
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or 'mysql+pymysql://root:123456@127.0.0.1:3306/flask_blog?charset=utf8'
 
 config = {
     'development':DevelopmentConfig,
