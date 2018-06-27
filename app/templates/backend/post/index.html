@@ -3,9 +3,9 @@
 {% block search %}
 <div class="table-reload-btn" style="margin-bottom: 10px;">
   <div class="layui-inline">
-    <input class="layui-input" name="title" id="table-reload" placeholder="文章标题" autocomplete="off">
+    <input class="layui-input" name="title" id="title" placeholder="文章标题" autocomplete="off">
   </div>
-  <button class="layui-btn" data-type="reload">搜索</button>
+  <button class="layui-btn" data-type="search">搜索</button>
   <button class="layui-btn" data-type="create" data-url="{{ url_for('backend.post_create') }}">创建</button>
 </div>
 {% endblock %}
@@ -21,7 +21,8 @@
 </script>
 <script>
 layui.use('table', function(){
-  var table = layui.table;
+  var table = layui.table
+  ,$ = layui.$;
   
   table.render({
     elem: '#table-form'
@@ -37,6 +38,25 @@ layui.use('table', function(){
     ]]
     ,page: true
   });
+
+  var active = {
+      search: function(){
+        //执行重载
+        table.reload('table-form', {
+          page: {
+            curr: 1 //重新从第 1 页开始
+          }
+          ,where: {
+              title: $('#title').val(),
+          }
+        });
+      }
+    };
+
+    $('.layui-btn').on('click', function(){
+        var type = $(this).data('type');
+        active[type] ? active[type].call(this) : '';
+      });
 
 });
 </script>

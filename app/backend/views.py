@@ -41,7 +41,7 @@ def index():
 def users():
     page = request.args.get('page',0, type=int)
     if page > 0:
-        lists = User.query.order_by(User.created_at.desc()).paginate(page,per_page=15,error_out=False)
+        lists = User.query.order_by(User.created_at.desc()).paginate(page,per_page=10,error_out=False)
         data = {
             'list':lists.items,
             'total':lists.total
@@ -105,9 +105,10 @@ def user_del():
 @backend.route('/post/index')
 @login_required
 def posts():
+    title = request.args.get('title','')
     page = request.args.get('page',0, type=int)
     if page > 0:
-        lists = Post.query.order_by(Post.created_at.desc()).paginate(page,per_page=15,error_out=False)
+        lists = Post.query.filter(Post.title.like('%'+title+'%')).order_by(Post.created_at.desc()).paginate(page,per_page=10,error_out=False)
         data = {
             'list':lists.items,
             'total':lists.total
@@ -184,7 +185,7 @@ def post_del():
 def category():
     page = request.args.get('page',0, type=int)
     if page > 0:
-        lists = Category.query.order_by(Category.id.desc()).paginate(page,per_page=15,error_out=False)
+        lists = Category.query.order_by(Category.id.desc()).paginate(page,per_page=10,error_out=False)
         data = {
             'list':lists.items,
             'total':lists.total
@@ -241,7 +242,7 @@ def category_del():
 def labels():
     page = request.args.get('page',0, type=int)
     if page > 0:
-        lists = Label.query.order_by(Label.id.desc()).paginate(page,per_page=15,error_out=False)
+        lists = Label.query.order_by(Label.id.desc()).paginate(page,per_page=10,error_out=False)
         data = {
             'list':lists.items,
             'total':lists.total
@@ -358,7 +359,7 @@ def upload_file():
 def links():
     page = request.args.get('page',0, type=int)
     if page > 0:
-        lists = Link.query.order_by(Link.id.desc()).paginate(page,per_page=15,error_out=False)
+        lists = Link.query.order_by(Link.id.desc()).paginate(page,per_page=10,error_out=False)
         data = {
             'list':lists.items,
             'total':lists.total
