@@ -14,7 +14,7 @@
                 Posted:{{ post.created_at.strftime('%Y-%m-%d') }}&nbsp;&nbsp;By<span> {{ post.author }}</span></p>
         </section>
         {% endfor %}
-        {{ render_pagination(pagination,url_for(".search",id=id),1) }}
+        {{ render_pagination(pagination,url_for(".search",keyword=keyword),1) }}
     </div>
 </div>
 {% endblock %}

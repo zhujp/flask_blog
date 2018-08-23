@@ -32,10 +32,12 @@ def post(id):
 @frontend.route('/search')
 def search():
     keyword = request.form.get('keyword','')
+    if not keyword.strip():
+        keyword = request.args.get('keyword','')
     page = request.args.get('page',1, type=int)
     pagination = Post.query.filter(Post.title.like('%'+keyword+'%')).order_by(Post.created_at.desc()).paginate(page,per_page=15,error_out=False)
     posts = pagination.items
-    return render_template('search.html',posts=posts,pagination=pagination)
+    return render_template('search.html',posts=posts,pagination=pagination,keyword=keyword)
 
 @frontend.context_processor
 def common():
