@@ -29,7 +29,7 @@ def post(id):
     post.views = post.views+1
     return render_template('post.html',post=post)
 
-@frontend.route('/search')
+@frontend.route('/search',methods=['GET','POST'])
 def search():
     keyword = request.form.get('keyword','')
     if not keyword.strip():
