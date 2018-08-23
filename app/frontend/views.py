@@ -1,4 +1,4 @@
-from flask import render_template, redirect, request, url_for, flash
+from flask import render_template, redirect, request, url_for, flash, session
 from . import frontend
 from ..models import Category, Label, Post, Link,Setting
 from datetime import datetime
@@ -31,9 +31,10 @@ def post(id):
 
 @frontend.route('/search',methods=['GET','POST'])
 def search():
-    keyword = request.args.get('keyword','')    
-    if request.method == 'POST':
-        keyword = request.form.get('keyword','')
+    keyword = request.form.get('keyword','')  
+    if not keyword.strip():
+        keyword = session.get('keyword')
+    session['keyword'] = keyword    
     page = request.args.get('page',1, type=int)
     pagination = Post.query.filter(Post.title.like('%'+keyword+'%')).order_by(Post.created_at.desc()).paginate(page,per_page=15,error_out=False)
     posts = pagination.items
